@@ -3020,7 +3020,6 @@ async function showMedicoInsight(crm, nome){
   body.innerHTML    = '<div class="insight-loading"><div class="insight-spinner"></div><span>Analisando dados...</span></div>';
   overlay.classList.add('show');
 
-  /* ── Dados base do médico ─────────────────────────────────────── */
   const medicoRows = ROWS.filter(r => val(r,'CRM') === crm);
   if(!medicoRows.length){ body.textContent='Sem dados para este médico.'; return; }
 
@@ -3029,7 +3028,7 @@ async function showMedicoInsight(crm, nome){
   const esp      = val(r0,'ESP');
   const cidade   = val(r0,'Cidade');
 
-  /* ── Ranking geral (TT ATUAL e EUF ATUAL) ─────────────────────── */
+  // Ranking geral
   const rankMap = {};
   ROWS.forEach(r => {
     const c2 = val(r,'CRM');
@@ -3040,12 +3039,12 @@ async function showMedicoInsight(crm, nome){
   });
   const sortedTT  = Object.entries(rankMap).sort((a,b) => b[1].tt  - a[1].tt);
   const sortedEUF = Object.entries(rankMap).sort((a,b) => b[1].euf - a[1].euf);
-  const posTT     = sortedTT.findIndex(x  => x[0] === crm);
-  const posEUF    = sortedEUF.findIndex(x => x[0] === crm);
-  const rankTT    = posTT  >= 0 ? `#${posTT  + 1} em TT Atual`  : 'fora do ranking TT';
-  const rankEUF   = posEUF >= 0 ? `#${posEUF + 1} em EUF Atual` : 'fora do ranking EUF';
+  const posTT  = sortedTT.findIndex(x  => x[0] === crm);
+  const posEUF = sortedEUF.findIndex(x => x[0] === crm);
+  const rankTT  = posTT  >= 0 ? `#${posTT  + 1}` : 'fora do ranking';
+  const rankEUF = posEUF >= 0 ? `#${posEUF + 1}` : 'fora do ranking';
 
-  /* ── Agrupar por Mercado (col K) — filtrar TT soma >= 4 ────────── */
+  // Agrupar por Mercado — filtrar soma TT ATUAL >= 4
   const byMercado = {};
   medicoRows.forEach(r => {
     const m = val(r,'Mercado');
@@ -3053,17 +3052,19 @@ async function showMedicoInsight(crm, nome){
     byMercado[m].push(r);
   });
 
-  // Filtrar mercados com soma TT ATUAL >= 4
-  const mercadosValidos = Object.entries(byMercado).filter(([, rows]) => {
-    return rows.reduce((s,r) => { const v=val(r,'TT ATUAL'); return s+(v===''?0:v); }, 0) >= 4;
-  });
+  const mercadosValidos = Object.entries(byMercado).filter(([, rows]) =>
+    rows.reduce((s,r) => { const v=val(r,'TT ATUAL'); return s+(v===''?0:v); }, 0) >= 4
+  );
 
   if(!mercadosValidos.length){
     body.textContent = 'Nenhum mercado com TT Atual ≥ 4 para analisar.';
     return;
   }
 
-  /* ── Montar dados estruturados por Mercado ─────────────────────── */
+  // Helpers
+  const pctStr = v => v !== null ? `${v >= 0 ? '+' : ''}${v.toFixed(1)}%` : 'novo';
+  const mksStr = v => v !== '' && v !== null ? `${(v*100).toFixed(1)}%` : '–';
+
   let blocosCrescimento = '';
   let blocosQueda       = '';
   let blocosCompetitivo = '';
@@ -3073,110 +3074,127 @@ async function showMedicoInsight(crm, nome){
     const nomeMkt  = mercado.replace(/_/g,'').trim();
     const eufRows  = rows.filter(r =>  /EUF/i.test(val(r,'Marca')));
     const concRows = rows.filter(r => !/EUF/i.test(val(r,'Marca')));
-    const ttMkt    = rows.reduce((s,r) => { const v=val(r,'TT ATUAL'); return s+(v===''?0:v); }, 0);
+    const ttMktAtual = rows.reduce((s,r) => s+(val(r,'TT ATUAL')||0), 0);
+    const ttMktAnt   = rows.reduce((s,r) => s+(val(r,'TT ANT')||0),   0);
+    const evMkt = ttMktAnt > 0 ? ((ttMktAtual - ttMktAnt) / ttMktAnt * 100) : null;
+    const cabMkt = `  Mercado: ${nomeMkt} | TT ANT: ${ttMktAnt} → TT ATUAL: ${ttMktAtual} (${pctStr(evMkt)})\n`;
 
-    // ── CRESCIMENTO e QUEDA ─────────────────────────────────────────
     let linhasCrEuf='', linhasCrConc='', linhasQdEuf='', linhasQdConc='';
 
+    const formatarMarca = (r, tipo) => {
+      const marca   = val(r,'Marca');
+      const ttAnt   = val(r,'TT ANT')    || 0;
+      const ttAtual = val(r,'TT ATUAL')  || 0;
+      const mksAnt  = val(r,'MKS ANT')  !== '' ? val(r,'MKS ANT')  : null;
+      const mksAtual= val(r,'MKS ATUAL') !== '' ? val(r,'MKS ATUAL') : null;
+      const evTT    = ttAnt > 0 ? ((ttAtual - ttAnt) / ttAnt * 100) : null;
+      const evMKS   = mksAnt !== null && mksAtual !== null ? ((mksAtual - mksAnt) * 100) : null;
+      return `    [${tipo}] ${marca}:\n` +
+             `      TT ANT: ${ttAnt} → TT ATUAL: ${ttAtual} (${pctStr(evTT)})\n` +
+             `      MKS ANT: ${mksStr(mksAnt)} → MKS ATUAL: ${mksStr(mksAtual)}` +
+             (evMKS !== null ? ` (${evMKS >= 0 ? '+' : ''}${evMKS.toFixed(1)} p.p.)` : '') + '\n';
+    };
+
     eufRows.forEach(r => {
-      const marca = val(r,'Marca');
-      const ttA   = val(r,'TT ANT')||0,  ttAt = val(r,'TT ATUAL')||0;
-      if(ttA === 0 && ttAt === 0) return;
-      const ev = ttA > 0 ? ((ttAt - ttA) / ttA * 100) : null;
-      const evStr = ev !== null ? `${ev >= 0 ? '+' : ''}${ev.toFixed(1)}%` : 'novo';
-      if(ev === null || ev >= 0){
-        linhasCrEuf += `      [MEU PRODUTO] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
+      const ttAnt  = val(r,'TT ANT')   || 0;
+      const ttAtual= val(r,'TT ATUAL') || 0;
+      const evTT   = ttAnt > 0 ? ((ttAtual - ttAnt) / ttAnt * 100) : null;
+      const linha  = formatarMarca(r, 'MEU PRODUTO');
+      if(evTT === null || evTT >= 0){
+        linhasCrEuf += linha;
       } else {
-        const alerta = ev <= -15 ? ' ⚠️ ALERTA QUEDA >= 15%' : '';
-        linhasQdEuf += `      [MEU PRODUTO] ${marca}: TT ${ttA} → ${ttAt} (${evStr})${alerta}\n`;
+        const alerta = evTT <= -15 ? '      ⚠️ ALERTA: QUEDA >= 15%\n' : '';
+        linhasQdEuf += linha + alerta;
       }
     });
 
     concRows.forEach(r => {
-      const marca = val(r,'Marca');
-      const ttA   = val(r,'TT ANT')||0, ttAt = val(r,'TT ATUAL')||0;
-      if(ttA === 0 && ttAt === 0) return;
-      const ev = ttA > 0 ? ((ttAt - ttA) / ttA * 100) : null;
-      const evStr = ev !== null ? `${ev >= 0 ? '+' : ''}${ev.toFixed(1)}%` : 'novo';
-      if(ev === null || ev >= 0){
-        linhasCrConc += `      [CONCORRENTE] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
-      } else {
-        linhasQdConc += `      [CONCORRENTE] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
-      }
+      const ttAnt  = val(r,'TT ANT')   || 0;
+      const ttAtual= val(r,'TT ATUAL') || 0;
+      const evTT   = ttAnt > 0 ? ((ttAtual - ttAnt) / ttAnt * 100) : null;
+      const linha  = formatarMarca(r, 'CONCORRENTE');
+      if(evTT === null || evTT >= 0) linhasCrConc += linha;
+      else linhasQdConc += linha;
     });
 
-    if(linhasCrEuf || linhasCrConc){
-      blocosCrescimento += `  Mercado ${nomeMkt} (TT Atual total: ${ttMkt}):\n${linhasCrEuf}${linhasCrConc}`;
-    }
-    if(linhasQdEuf || linhasQdConc){
-      blocosQueda += `  Mercado ${nomeMkt} (TT Atual total: ${ttMkt}):\n${linhasQdEuf}${linhasQdConc}`;
-    }
+    if(linhasCrEuf || linhasCrConc)
+      blocosCrescimento += cabMkt + linhasCrEuf + linhasCrConc;
+    if(linhasQdEuf || linhasQdConc)
+      blocosQueda += cabMkt + linhasQdEuf + linhasQdConc;
 
-    // ── POSIÇÃO COMPETITIVA (MKS ATUAL col R + TT ATUAL col O) ─────
-    const todasMarcas = [...rows].sort((a,b) => (val(b,'TT ATUAL')||0) - (val(a,'TT ATUAL')||0));
-    const liderTT = todasMarcas[0];
+    // POSIÇÃO COMPETITIVA
+    const todasOrd = [...rows].sort((a,b) => (val(b,'TT ATUAL')||0) - (val(a,'TT ATUAL')||0));
+    const ttLider  = val(todasOrd[0],'TT ATUAL') || 0;
+    const nomeLider= val(todasOrd[0],'Marca');
     eufRows.forEach(r => {
-      const marca    = val(r,'Marca');
-      const mksAtual = val(r,'MKS ATUAL') || 0;
-      const mksAnt   = val(r,'MKS ANT')   || 0;
-      const ttAt     = val(r,'TT ATUAL')   || 0;
-      const posRank  = todasMarcas.findIndex(x => val(x,'Marca') === marca) + 1;
-      const ttLider  = val(liderTT,'TT ATUAL') || 0;
-      const distLider= posRank > 1 ? `, distância do líder: ${ttLider - ttAt} (${val(liderTT,'Marca')})` : ' 👑 LÍDER';
-      blocosCompetitivo += `  ${nomeMkt} | ${marca}: MKS Ant ${(mksAnt*100).toFixed(1)}% → MKS Atual ${(mksAtual*100).toFixed(1)}% | TT ${ttAt} | Posição #${posRank}/${todasMarcas.length}${distLider}\n`;
+      const marca   = val(r,'Marca');
+      const ttAtual = val(r,'TT ATUAL')  || 0;
+      const ttAnt   = val(r,'TT ANT')    || 0;
+      const mksAnt  = val(r,'MKS ANT')  !== '' ? val(r,'MKS ANT')  : null;
+      const mksAtual= val(r,'MKS ATUAL') !== '' ? val(r,'MKS ATUAL') : null;
+      const pos     = todasOrd.findIndex(x => val(x,'Marca') === marca) + 1;
+      const liderInfo = pos === 1 ? '👑 LÍDER' : `Posição #${pos}/${todasOrd.length} | distância do líder (${nomeLider}): ${ttLider - ttAtual} receitas`;
+      blocosCompetitivo +=
+        `  ${nomeMkt} | ${marca}:\n` +
+        `    TT ANT: ${ttAnt} → TT ATUAL: ${ttAtual}\n` +
+        `    MKS ANT: ${mksStr(mksAnt)} → MKS ATUAL: ${mksStr(mksAtual)}\n` +
+        `    ${liderInfo}\n`;
     });
 
-    // ── OPORTUNIDADES ───────────────────────────────────────────────
-    const mksMaxEuf = Math.max(...eufRows.map(r => val(r,'MKS ATUAL')||0));
-    const mksMaxConc = Math.max(...(concRows.length ? concRows.map(r => val(r,'TT ATUAL')||0) : [0]));
-    const estrategia = mksMaxEuf * (ttMkt||1) >= mksMaxConc ? 'DEFENDER' : 'ATACAR';
-    const concNoMkt = concRows.map(r => val(r,'Marca')).join(', ');
-    blocosOport += `  ${nomeMkt}: estratégia ${estrategia}`;
-    if(concRows.length) blocosOport += ` | Concorrentes presentes: ${concNoMkt}`;
+    // OPORTUNIDADES
+    const mksMaxEuf  = Math.max(...eufRows.map(r  => val(r,'MKS ATUAL') || 0));
+    const mksMaxConc = Math.max(...(concRows.length ? concRows.map(r => val(r,'MKS ATUAL') || 0) : [0]));
+    const estrategia = mksMaxEuf >= mksMaxConc ? 'DEFENDER' : 'ATACAR';
+    const concPresentes = concRows.map(r => {
+      const m = val(r,'Marca'), tt = val(r,'TT ATUAL')||0, mks = val(r,'MKS ATUAL');
+      return `${m} (TT: ${tt}, MKS: ${mksStr(mks)})`;
+    }).join(', ');
+    blocosOport += `  ${nomeMkt}: ${estrategia}`;
+    if(concRows.length) blocosOport += ` | Concorrentes: ${concPresentes}`;
     blocosOport += '\n';
   });
 
-  /* ── Prompt para a IA ──────────────────────────────────────────── */
-  const prompt = `Você é um analista técnico-comercial da Eurofarma. Analise os dados do médico abaixo com tom técnico-comercial, preciso e direto. Use bullet points e linguagem profissional em português.
+  const prompt =
+`Você é um analista técnico-comercial da Eurofarma. Analise os dados abaixo com tom técnico-comercial, preciso e profissional. Use bullet points em português.
 
 MÉDICO: ${nome} | ESPECIALIDADE: ${esp} | CIDADE: ${cidade}
-STATUS: ${visitado ? 'VISITADO ✅' : 'NÃO VISITADO ❌'} | RANKING GERAL: ${rankTT} | ${rankEUF}
+STATUS: ${visitado ? 'VISITADO ✅' : 'NÃO VISITADO ❌'}
+RANKING GERAL: ${rankTT} em TT Atual | ${rankEUF} em EUF Atual
+Produtos com "EUF" = meus produtos. Demais = concorrentes. Apenas mercados com TT Atual soma >= 4.
 
-Nota: Produtos com "EUF" no nome são os meus. Os demais são concorrentes. Mercados analisados: TT Atual soma >= 4.
+=== CRESCIMENTO (TT ANT→TT ATUAL | MKS ANT→MKS ATUAL) ===
+${blocosCrescimento || 'Nenhum produto em crescimento.'}
 
-=== DADOS DE CRESCIMENTO (TT ANT → TT ATUAL por marca dentro de cada Mercado col K) ===
-${blocosCrescimento || 'Nenhum produto em crescimento nos mercados elegíveis.'}
+=== QUEDA (alerta para queda TT >= 15%) ===
+${blocosQueda || 'Nenhum produto em queda.'}
 
-=== DADOS DE QUEDA (alerta para queda >= 15%) ===
-${blocosQueda || 'Nenhum produto em queda nos mercados elegíveis.'}
-
-=== POSIÇÃO COMPETITIVA (MKS ATUAL col R | TT ATUAL col O | ranking dentro do Mercado) ===
+=== POSIÇÃO COMPETITIVA (TT ANT→TT ATUAL | MKS ANT→MKS ATUAL | ranking no mercado) ===
 ${blocosCompetitivo || 'Sem dados competitivos.'}
 
-=== OPORTUNIDADES POR MERCADO (DEFENDER onde lidero, ATACAR onde estou atrás) ===
-${blocosOport || 'Sem dados de oportunidade.'}
+=== OPORTUNIDADES (DEFENDER/ATACAR | concorrentes presentes) ===
+${blocosOport || 'Sem dados.'}
 
-Estruture sua resposta EXATAMENTE assim:
+Estruture EXATAMENTE assim:
 
 📋 STATUS DO MÉDICO
-[Nome, especialidade, status de visita, posição no ranking TT e EUF e o que isso significa estrategicamente]
+[Nome, especialidade, visitado/não, ranking TT e EUF e impacto estratégico]
 
 📈 CRESCIMENTO
-[Por mercado: como meus produtos EUF estão crescendo vs concorrentes. Use números reais.]
+[Por mercado col K: meus EUF vs concorrentes. Cite TT ANT→TT ATUAL e MKS ANT→MKS ATUAL com variações.]
 
 📉 QUEDA
-[Por mercado: meus produtos EUF em queda. Quedas >= 15% são urgentes. Compare com concorrentes.]
+[Por mercado col K: meus EUF em queda. Cite TT ANT→TT ATUAL e MKS ANT→MKS ATUAL. Urgente se >= 15%.]
 
 🏆 POSIÇÃO COMPETITIVA
-[Por mercado: onde sou líder (MKS/TT), posição e distância do líder quando não lidero.]
+[Por mercado: onde lidero (MKS/TT), posição e distância do líder com números reais TT e MKS ANT→ATUAL.]
 
 💡 OPORTUNIDADES
-[DEFENDER onde MKS maior. ATACAR onde estou atrás. Alertar se concorrente está no meu mercado.]
+[DEFENDER onde MKS maior. ATACAR onde estou atrás. Alertar concorrentes presentes no meu mercado.]
 
 ⚠️ ALERTA ESTRATÉGICO
-[1-2 ações cirúrgicas: dia do produto, amostras em mercados sem liderança, reforço de benefícios.]
+[1-2 ações cirúrgicas: dia do produto, amostras em mercados sem liderança, reforço de benefícios e características.]
 
-Máximo 300 palavras. Use dados reais. Tom técnico-comercial.`;
+Máximo 320 palavras. Sempre cite TT ANT→TT ATUAL e MKS ANT→MKS ATUAL com as variações. Tom técnico-comercial.`;
 
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -3185,7 +3203,7 @@ Máximo 300 palavras. Use dados reais. Tom técnico-comercial.`;
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 800,
+        max_tokens: 900,
         temperature: 0.2
       })
     });
