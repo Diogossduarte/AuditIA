@@ -1,0 +1,3215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Painel de Auditoria Médica — Eurofarma</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Auditoria EF">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2NQ8RHG1FJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2NQ8RHG1FJ');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A0F1E; --navy2:#0D1F5C; --petrol:#1E3A5F;
+  --mint:#00C9A7; --coral:#FF6B6B; --amber:#FFD93D; --blue:#1B7FE8; --blue-l:#4DAAFF;
+  --snow:#F0F4FF; --surface:#FFFFFF; --borderL:#E4E9F4;
+  --text:#0A0F1E; --sub:#64748B; --hint:#94A3B8;
+  --green:#10B981; --red:#EF4444;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter','Segoe UI',sans-serif;color:var(--text);}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;}
+
+/* ===== GATE / LANDING SCREEN (estilo Indiana APP) ===== */
+#landingScreen{display:flex;min-height:100vh;background:var(--navy2);}
+
+.land-logo-box{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,.07);}
+.land-mark{
+  width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--navy2));color:#fff;font-weight:800;font-size:16px;
+}
+
+
+
+
+
+
+
+.land-foot{padding:20px;border-top:1px solid rgba(255,255,255,.07);font-size:11px;color:rgba(255,255,255,.2);
+  display:flex;align-items:center;gap:6px;}
+
+.land-main{margin-left:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;}
+.land-main .biglogo{margin-bottom:28px;text-align:center;}
+.land-main .biglogo .land-mark{width:74px;height:74px;font-size:26px;border-radius:16px;margin:0 auto;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);}
+.land-main h1{color:#fff;font-size:28px;font-weight:800;margin:0 0 6px;letter-spacing:-.5px;text-align:center;}
+.land-main p.tagline{color:rgba(255,255,255,.75);font-size:15px;font-weight:500;margin:0 0 10px;text-align:center;font-style:italic;}
+.land-main p.lead{color:rgba(255,255,255,.4);font-size:14px;margin:0;text-align:center;}
+.land-footer{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:28px;}
+.land-author{font-size:12px;color:rgba(255,255,255,.35);text-align:center;}
+.land-author strong{color:rgba(255,255,255,.55);}
+.land-whatsapp{display:flex;align-items:center;gap:8px;background:rgba(37,211,102,.12);color:#25D366;
+  border:1px solid rgba(37,211,102,.3);border-radius:24px;padding:8px 18px;
+  font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;}
+
+
+
+.lfc-icon{font-size:22px;}
+.lfc-title{color:#fff;font-size:12px;font-weight:700;}
+.lfc-sub{color:rgba(255,255,255,.4);font-size:10.5px;line-height:1.4;}
+@media(max-width:520px){}
+.land-version{background:rgba(255,255,255,.1);padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.3px;}
+.land-secure-badge{display:inline-flex;align-items:center;gap:7px;
+  background:rgba(0,198,162,.1);border:1px solid rgba(0,198,162,.25);
+  color:rgba(0,198,162,.9);border-radius:20px;padding:7px 16px;
+  font-size:12px;font-weight:600;margin:10px 0 6px;}
+.land-secure-badge svg{flex-shrink:0;stroke:rgba(0,198,162,.9);}
+.land-features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:640px;margin:22px 0 26px;}
+.land-feat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;
+  padding:18px 14px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;transition:background .2s;}
+.land-feat-card:hover{background:rgba(255,255,255,.11);}
+.lfc-icon{font-size:24px;}
+.lfc-title{color:#fff;font-size:13px;font-weight:700;}
+.lfc-sub{color:rgba(255,255,255,.4);font-size:11px;line-height:1.5;}
+@media(max-width:520px){.land-features{grid-template-columns:repeat(2,1fr);}}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:transparent;transition:background .15s;}
+.pin-dot.filled{background:#fff;border-color:#fff;}
+.pin-key{width:72px;height:72px;border-radius:18px;border:none;background:rgba(255,255,255,.08);
+  color:#fff;font-size:22px;font-weight:600;cursor:pointer;transition:all .15s;}
+.pin-key:hover{background:rgba(255,255,255,.16);}
+.pin-key:active{transform:scale(.94);background:rgba(255,255,255,.2);}
+.pin-del{font-size:20px;}
+.pin-ok{background:var(--blue);font-size:15px;font-weight:700;}
+.pin-ok:hover{background:#1565c0;}
+
+.land-guide{
+  width:100%;max-width:480px;margin:28px 0;background:rgba(255,255,255,.05);
+  border:1px solid rgba(77,170,255,.2);border-radius:16px;padding:20px 24px;
+}
+.land-guide .label{font-size:11px;font-weight:700;color:var(--blue-l);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+.land-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.land-step:last-child{margin-bottom:0;}
+.land-step .num{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.land-step.active .num{background:var(--blue);border:none;color:#fff;}
+.land-step .txt{padding-top:3px;font-size:13px;line-height:1.4;color:rgba(255,255,255,.5);}
+.land-step.active .txt{color:#fff;font-weight:600;}
+
+.land-dropzone{
+  width:100%;max-width:480px;border:2px dashed rgba(77,170,255,.3);border-radius:14px;
+  padding:28px 20px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.03);
+}
+.land-dropzone:hover{border-color:var(--blue-l);background:rgba(77,170,255,.06);}
+.land-dropzone .icon{font-size:28px;margin-bottom:8px;}
+.land-dropzone .main-txt{font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;}
+.land-dropzone .sub-txt{font-size:12px;color:rgba(255,255,255,.35);}
+#fileUploadLanding{display:none;}
+.land-hint{color:rgba(255,255,255,.2);font-size:12px;margin-top:16px;}
+#landingStatus{display:block;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--mint);}
+#landingStatus.error{color:var(--coral);}
+.landing-demo{margin-top:10px;font-size:12.5px;color:var(--blue-l);cursor:pointer;font-weight:600;}
+.landing-demo:hover{text-decoration:underline;}
+
+/* ===== APP PRINCIPAL ===== */
+#appScreen{display:none;min-height:100vh;background:var(--snow);}
+#loadingOverlay{
+  display:none;position:fixed;inset:0;background:rgba(10,15,30,.55);z-index:999;
+  align-items:center;justify-content:center;flex-direction:column;gap:14px;
+}
+#loadingOverlay.show{display:flex;}
+.spinner{width:40px;height:40px;border-radius:50%;border:4px solid rgba(255,255,255,.25);
+  border-top-color:#fff;animation:spin .8s linear infinite;}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.loading-text{color:#fff;font-size:13px;font-weight:600;letter-spacing:.3px;}
+
+.setor-modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(10,15,30,.6);z-index:1000;
+  align-items:center;justify-content:center;padding:20px;
+}
+.setor-modal-overlay.show{display:flex;}
+.setor-modal{
+  background:#fff;border-radius:16px;max-width:440px;width:100%;padding:26px 28px;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);
+}
+.setor-modal h3{margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);}
+.setor-modal-sub{margin:0 0 18px;font-size:12.5px;color:var(--sub);line-height:1.5;}
+.setor-modal-list{max-height:260px;overflow-y:auto;border:1px solid var(--borderL);border-radius:10px;margin-bottom:18px;}
+.setor-modal-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13.5px;color:var(--text);
+  border-bottom:1px solid var(--borderL);cursor:pointer;}
+.setor-modal-opt:last-child{border-bottom:none;}
+.setor-modal-opt:hover{background:#f8fafc;}
+.setor-modal-opt input{cursor:pointer;accent-color:var(--blue);width:16px;height:16px;}
+.setor-modal-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;}
+.chart-modal{max-width:640px;}
+.insight-modal{max-width:560px;max-height:80vh;display:flex;flex-direction:column;}
+.insight-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.insight-icon{font-size:28px;flex-shrink:0;}
+.insight-body{flex:1;overflow-y:auto;font-size:13.5px;line-height:1.7;color:#334155;
+  padding:14px 16px;background:#F8FAFF;border-radius:12px;min-height:80px;white-space:pre-wrap;}
+.insight-loading{display:flex;align-items:center;gap:12px;color:var(--sub);padding:20px;}
+.insight-spinner{width:20px;height:20px;border:2px solid #E4E9F4;border-top-color:var(--blue);
+  border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.insight-btn{cursor:pointer;font-size:12px;background:linear-gradient(135deg,#667eea,#764ba2);
+  color:#fff;border:none;border-radius:8px;padding:2px 8px;margin-left:6px;
+  font-weight:600;vertical-align:middle;transition:opacity .15s;white-space:nowrap;}
+.insight-btn:hover{opacity:.85;}
+.mercado-chart-btn{cursor:pointer;margin-left:4px;font-size:13px;}
+.star-alert{font-size:12px;}
+.map-pin{font-size:13px;text-decoration:none;cursor:pointer;opacity:.7;}
+.map-pin:hover{opacity:1;}
+.btn-icon{padding:8px 10px;font-size:15px;background:var(--snow);color:var(--navy);border:1px solid var(--borderL);}
+.btn-icon:hover{background:var(--borderL);}
+.btn-clear{background:transparent;color:var(--sub);border:1px solid var(--borderL);font-size:12.5px;}
+.btn-clear:hover{background:#FFF0F0;color:var(--red);border-color:var(--red);}
+.row-alert td{background:#FFFBEB !important;}
+.visitado-filter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.v-opt{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text);cursor:pointer;font-weight:500;}
+.v-opt input{cursor:pointer;accent-color:var(--blue);width:15px;height:15px;}
+.mercado-chart-btn:hover{opacity:.7;}
+.chart-legend{display:flex;gap:18px;justify-content:center;margin-bottom:10px;font-size:12px;color:var(--sub);}
+.chart-legend span{display:inline-flex;align-items:center;gap:6px;}
+.chart-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.chart-empty{padding:30px;text-align:center;color:var(--hint);font-size:13px;}
+.app-flex{display:flex;min-height:100vh;}
+/* ---- Barra lateral ---- */
+aside.app-side{
+  width:64px;
+  background:var(--navy);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transition:width .28s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+  box-shadow:3px 0 20px rgba(10,15,30,.4);
+}
+aside.app-side:hover{ width:240px; }
+
+/* Elementos que só aparecem expandido */
+.side-hide{
+  opacity:0;
+  transition:opacity .15s;
+  white-space:nowrap;
+  overflow:hidden;
+  pointer-events:none;
+  max-width:0;
+}
+aside.app-side:hover .side-hide{
+  opacity:1;
+  pointer-events:auto;
+  max-width:200px;
+}
+.side-hide-block{
+  opacity:0;
+  transition:opacity .15s;
+  pointer-events:none;
+  overflow:hidden;
+  max-height:0;
+}
+aside.app-side:hover .side-hide-block{
+  opacity:1;
+  pointer-events:auto;
+  max-height:200px;
+}
+.side-logo{padding:16px 16px 12px;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:10px;}
+.side-logo .mark{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--navy2));color:#fff;font-weight:800;font-size:13px;}
+.side-logo .name{color:#fff;font-weight:800;font-size:12.5px;line-height:1.3;}
+.side-logo .sub{color:rgba(255,255,255,.35);font-size:10px;}
+
+.side-file{margin:12px 12px 0;border-radius:10px;background:rgba(255,255,255,.06);padding:10px 12px;}
+.side-file .lbl{font-size:10px;color:var(--mint);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px;}
+.side-file .name{font-size:11px;color:rgba(255,255,255,.7);word-break:break-all;line-height:1.4;}
+.side-file .count{font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;}
+.side-reupload{display:block;margin-top:8px;font-size:10.5px;color:var(--blue-l);cursor:pointer;font-weight:600;}
+.side-reupload:hover{text-decoration:underline;}
+#fileUpload{display:none;}
+
+nav.side-nav{padding:10px 8px;flex:1;overflow-y:auto;overflow-x:hidden;}
+.nav-section-label{font-size:9px;color:rgba(255,255,255,.3);font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  margin:8px 0 4px 10px;opacity:0;transition:opacity .2s;}
+aside.app-side:hover .nav-section-label{opacity:1;}
+.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:10px;border-radius:10px;border:none;
+  cursor:pointer;background:transparent;color:rgba(255,255,255,.55);font-size:13px;font-weight:400;
+  transition:all .15s;text-align:left;margin-bottom:2px;overflow:hidden;white-space:nowrap;
+  justify-content:center;}
+aside.app-side:hover .nav-btn{justify-content:flex-start;}
+.nav-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center;line-height:1;}
+.nav-label{display:inline-block;}
+.nav-btn .dot{display:none;}
+.nav-btn.active{background:rgba(0,201,167,.15);color:var(--mint);font-weight:700;}
+.nav-btn.active .nav-icon{filter:drop-shadow(0 0 4px rgba(0,201,167,.6));}
+.nav-btn:hover:not(.active){background:rgba(255,255,255,.08);color:#fff;}
+
+.side-filters{padding:14px 12px 16px;border-top:1px solid rgba(255,255,255,.06);}
+.sf-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sf-title{font-size:10px;color:rgba(255,255,255,.3);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.sf-clear{background:none;border:none;cursor:pointer;font-size:10px;color:var(--coral);font-weight:700;padding:0;}
+.side-filters .field{margin-bottom:10px;}
+.quick-toggle{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;}
+.quick-toggle input{cursor:pointer;accent-color:var(--blue);}
+
+.inline-check-list{display:flex;flex-direction:column;gap:2px;max-height:220px;overflow-y:auto;
+  border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:6px;background:rgba(255,255,255,.03);}
+.inline-check-opt{display:flex;align-items:center;gap:8px;padding:5px 8px;font-size:12px;color:rgba(255,255,255,.7);
+  cursor:pointer;border-radius:5px;}
+.inline-check-opt:hover{background:rgba(255,255,255,.06);}
+.inline-check-opt input{cursor:pointer;accent-color:var(--blue);flex-shrink:0;}
+.inline-check-opt.select-all{border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:3px;padding-bottom:8px;
+  font-weight:700;color:#fff;}
+.side-filters label.flabel{display:block;font-size:10.5px;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.4px;}
+.side-filters select{
+  width:100%;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);color:#fff;font-size:12.5px;
+}
+.side-filters select option{color:#000;}
+.side-filters .msel-btn{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.85);
+}
+.side-filters .msel-btn:hover{border-color:var(--blue-l);}
+.side-filters .msel-panel{background:#0d1530;border-color:rgba(255,255,255,.1);}
+.side-filters .msel-opt{color:rgba(255,255,255,.8);}
+.side-filters .msel-opt:hover{background:rgba(255,255,255,.06);}
+.side-filters .msel-selectall{border-bottom-color:rgba(255,255,255,.1);}
+.side-filters .msel-clear{border-top-color:rgba(255,255,255,.1);}
+
+.side-foot{padding:12px 14px 16px;border-top:1px solid rgba(255,255,255,.06);}
+.side-foot .lbl{font-size:10px;color:rgba(255,255,255,.2);line-height:1.6;}
+.side-foot a{font-size:10px;color:var(--blue-l);text-decoration:none;word-break:break-all;line-height:1.5;display:block;margin-top:2px;}
+.side-foot a:hover{text-decoration:underline;}
+
+.app-content{margin-left:64px;flex:1;display:flex;flex-direction:column;min-width:0;}
+
+.topbar{
+  background:var(--surface);border-bottom:1px solid var(--borderL);padding:0 28px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 0 rgba(10,15,30,.06);flex-wrap:wrap;gap:10px;
+}
+.topbar .tb-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:0;padding:8px 0;}
+.topbar .tb-title{font-size:15px;font-weight:700;color:var(--text);flex-shrink:0;}
+.topbar .tb-count{font-size:12px;color:var(--sub);flex-shrink:0;}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;flex-shrink:0;}
+.chip.setor{background:#EEF2FF;color:#4338CA;}
+.chip.visitado{background:#F0FDF9;color:#065F46;}
+.chip button{background:none;border:none;cursor:pointer;font-size:13px;line-height:1;padding:0;color:inherit;}
+
+.content-pad{padding:24px 28px;flex:1;}
+.kpi-row{display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+.kpi-card{
+  background:var(--surface);border-radius:16px;padding:18px 22px;border:1px solid var(--borderL);
+  flex:1 1 150px;position:relative;overflow:hidden;
+}
+.kpi-card .label{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.kpi-card .value{font-size:32px;font-weight:800;color:var(--text);line-height:1;font-variant-numeric:tabular-nums;}
+.kpi-card .sub{font-size:12px;margin-top:6px;font-weight:500;}
+.kpi-card .icon{position:absolute;right:16px;top:16px;font-size:22px;opacity:.12;}
+
+.panel{background:var(--surface);border-radius:16px;border:1px solid var(--borderL);margin-bottom:20px;}
+.panel .tablewrap{border-radius:0 0 16px 16px;}
+.panel-h{padding:14px 20px;border-bottom:1px solid var(--borderL);font-weight:700;color:var(--text);font-size:13.5px;
+  display:flex;justify-content:space-between;align-items:center;}
+.panel-h .muted{color:var(--sub);font-size:12px;font-weight:500;}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:14px 20px;align-items:center;border-bottom:1px solid var(--borderL);}
+.btn{background:var(--blue);color:#fff;border:none;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.15s;}
+.btn:hover{background:var(--navy2);}
+.btn.secondary{background:#F8FAFF;color:var(--blue);border:1px solid var(--borderL);}
+.btn.secondary:hover{background:#EEF2FF;}
+
+.msel{position:relative;min-width:190px;}
+.msel-btn{width:100%;text-align:left;padding:9px 12px;border:1px solid var(--borderL);border-radius:9px;font-size:13px;
+  background:#fff;color:var(--text);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.msel-btn:hover{border-color:var(--blue);}
+.msel-panel{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--borderL);
+  border-radius:10px;box-shadow:0 12px 30px rgba(10,15,30,.15);z-index:30;min-width:230px;max-height:260px;overflow-y:auto;padding:6px 0;}
+.msel.open .msel-panel{display:block;}
+.msel-opt{display:flex;align-items:center;gap:9px;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--text);}
+.msel-opt:hover{background:#F8FAFF;}
+.msel-opt input{cursor:pointer;accent-color:var(--blue);}
+.msel-selectall{border-bottom:1px solid var(--borderL);margin-bottom:2px;padding-bottom:9px;}
+.msel-clear{padding:7px 14px;font-size:11.5px;color:var(--blue);cursor:pointer;border-top:1px solid var(--borderL);
+  margin-top:4px;font-weight:600;}
+.msel-clear:hover{text-decoration:underline;}
+.search-box{position:relative;min-width:240px;}
+.search-input{width:100%;padding:9px 12px;border:1px solid var(--borderL);border-radius:9px;font-size:13px;
+  background:#fff;color:var(--text);}
+.search-input:focus{outline:none;border-color:var(--blue);}
+.search-panel{display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;
+  border:1px solid var(--borderL);border-radius:10px;box-shadow:0 12px 30px rgba(10,15,30,.15);
+  z-index:30;max-height:240px;overflow-y:auto;}
+.search-opt{padding:8px 14px;font-size:13px;cursor:pointer;color:var(--text);}
+.search-opt:hover{background:#F8FAFF;}
+.search-empty{padding:10px 14px;font-size:12.5px;color:var(--hint);}
+.search-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;}
+.search-chip{display:inline-flex;align-items:center;gap:6px;background:#EEF2FF;color:#3730A3;
+  font-size:12px;font-weight:600;padding:4px 6px 4px 10px;border-radius:14px;}
+.search-chip button{background:none;border:none;cursor:pointer;color:#3730A3;font-size:14px;line-height:1;
+  padding:0 2px;font-weight:700;}
+.search-chip button:hover{color:#1E1B6E;}
+.filters select{padding:9px 12px;border:1px solid var(--borderL);border-radius:9px;font-size:13px;min-width:220px;
+  background:#fff;color:var(--text);}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed;}
+td,th{overflow:hidden;text-overflow:ellipsis;}
+th:first-child,td:first-child{width:44px;overflow:visible;text-overflow:unset;position:sticky;left:0;z-index:2;background:#F8FAFF;}
+th:nth-child(2),td:nth-child(2){width:240px;white-space:normal;overflow:visible;text-overflow:unset;position:sticky;left:44px;z-index:2;background:#F8FAFF;box-shadow:3px 0 8px rgba(0,0,0,.08);}
+th:nth-child(1){z-index:5;background:#F8FAFF;}
+th:nth-child(2){z-index:5;background:#F8FAFF;}
+th:nth-child(n+3),td:nth-child(n+3){width:88px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+th:nth-child(3),td:nth-child(3){width:52px;white-space:nowrap;overflow:visible;text-overflow:unset;padding-right:4px;}
+.tablewrap{max-height:calc(100vh - 240px);overflow:auto;-webkit-overflow-scrolling:touch;}
+th{background:#F8FAFF;color:var(--sub);text-align:left;padding:10px 12px;position:sticky;top:0;white-space:nowrap;z-index:3;
+  border-bottom:1px solid var(--borderL);font-size:11px;letter-spacing:.4px;text-transform:uppercase;font-weight:700;}
+th[data-col]{cursor:pointer;user-select:none;}
+th[data-col]:hover{background:#EEF2FF;color:var(--blue);}
+td{padding:8px 12px;border-bottom:1px solid var(--borderL);white-space:nowrap;color:#33415C;}
+td.num{text-align:right;}
+tr:hover td{background:#FAFBFF;}
+.tablewrap{max-height:calc(100vh - 240px);overflow:auto;-webkit-overflow-scrolling:touch;}
+.pos{color:var(--green);font-weight:600;}
+.neg{color:var(--red);font-weight:600;}
+.rank{font-weight:700;color:var(--hint);}
+.medico-link{color:var(--blue);text-decoration:none;cursor:pointer;font-weight:600;
+  border-bottom:1px dashed rgba(27,127,232,.4);}
+.medico-link:hover{color:var(--navy2);}
+.detail-row td{background:#F8FAFF;border-bottom:1px solid var(--borderL);}
+.mercado-row td:nth-child(1),.mercado-row td:nth-child(2){background:#EEF3FC;}
+.detail-row-own td:nth-child(1),.detail-row-own td:nth-child(2){background:rgba(0,201,167,.07);}
+.row-alert td:nth-child(1),.row-alert td:nth-child(2){background:#FFFBEB !important;}
+.mercado-row td{background:#EEF3FC;}
+.detail-row-own td{background:rgba(0,201,167,.07);font-weight:600;}
+.detail-leaf-name{padding-left:26px !important;color:var(--sub);}
+.detail-row-own .detail-leaf-name{color:#0a8f78;}
+.mercado-toggle{color:var(--navy2) !important;font-weight:700 !important;}
+.mercado-toggle:hover{color:var(--blue) !important;}
+.own-tag{display:inline-block;background:var(--mint);color:#fff;font-size:9.5px;font-weight:700;padding:1px 6px;
+  border-radius:8px;margin-left:6px;vertical-align:middle;letter-spacing:.3px;}
+.mks-tag{display:inline-block;background:#EEF2FF;color:#4338CA;font-size:9.5px;font-weight:700;padding:1px 6px;
+  border-radius:8px;margin-left:6px;vertical-align:middle;letter-spacing:.3px;}
+.badge{display:inline-block;padding:2px 10px;border-radius:6px;font-size:12px;font-weight:700;min-width:48px;text-align:center;}
+.badge-neg{background:#FEE2E2;color:#991B1B;}
+.badge-pos{background:#D1FAE5;color:#065F46;}
+.badge.na{background:transparent;color:var(--hint);font-weight:400;}
+.muted{color:var(--sub);font-size:12px;}
+.placeholder{padding:48px;text-align:center;color:var(--hint);font-size:13px;}
+.pagination-bar{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 20px;
+  border-top:1px solid var(--borderL);}
+.pagination-bar .btn.secondary[disabled]{opacity:.4;cursor:not-allowed;}
+/* ---- iPad / touch otimizações ---- */
+* { -webkit-tap-highlight-color: transparent; }
+body { -webkit-text-size-adjust: 100%; }
+.tablewrap { -webkit-overflow-scrolling: touch; }
+@media (max-width: 1024px){
+  table { font-size: 13px; }
+  th, td { padding: 10px 10px; }
+  th:nth-child(2), td:nth-child(2) { width: 180px; }
+  th:nth-child(n+3), td:nth-child(n+3) { width: 88px; }
+  .kpi-card { padding: 14px 16px; }
+  .kpi-value { font-size: 28px; }
+  .toolbar { gap: 8px; flex-wrap: wrap; }
+  .btn { padding: 9px 14px; font-size: 13px; }
+  .nav-btn { padding: 12px 10px; font-size: 13.5px; }
+  .panel { border-radius: 14px; }
+  .tablewrap { max-height: 55vh; }
+}
+.exit-btn {
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;margin:10px auto 14px;
+  border-radius:50%;border:none;
+  background:rgba(239,68,68,.15);color:#FF6B6B;
+  font-size:18px;cursor:pointer;
+  transition:background .15s;
+}
+.exit-btn:hover{background:rgba(239,68,68,.3);}
+.exit-icon{line-height:1;}
+
+/* Dashboard */
+.dash-toolbar{display:flex;align-items:center;gap:12px;padding:16px 20px 0;flex-wrap:wrap;}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:16px 20px;}
+@media(max-width:900px){.dash-kpis{grid-template-columns:repeat(2,1fr);}}
+.dash-kpi{background:#fff;border-radius:16px;padding:20px 22px;
+  border-top:4px solid var(--blue);box-shadow:0 2px 12px rgba(10,15,30,.06);}
+.dash-kpi.green{border-top-color:var(--mint);}
+.dash-kpi.amber{border-top-color:var(--amber);}
+.dash-kpi.coral{border-top-color:var(--coral);}
+.dash-kpi.purple{border-top-color:#A78BFA;}
+.dash-kpi.navy{border-top-color:var(--navy2);}
+.dash-kpi-label{font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.dash-kpi-value{font-size:32px;font-weight:800;color:var(--text);line-height:1;}
+.dash-kpi-sub{font-size:11.5px;color:var(--sub);margin-top:6px;}
+.dash-charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px 20px;}
+@media(max-width:900px){.dash-charts{grid-template-columns:1fr;}}
+.dash-chart-box{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 12px rgba(10,15,30,.06);}
+.dash-chart-area{overflow-x:auto;margin-top:12px;}
+.hbar-wrap{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.hbar-row{display:flex;align-items:center;gap:10px;}
+.hbar-label{font-size:11.5px;color:var(--text);width:220px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hbar-track{flex:1;background:#F0F4FF;border-radius:6px;height:18px;overflow:hidden;}
+.hbar-fill{height:100%;border-radius:6px;transition:width .3s ease;}
+.hbar-val{font-size:12px;font-weight:700;color:var(--text);width:54px;text-align:right;flex-shrink:0;}
+.dash-medico-link{color:var(--text);font-size:11.5px;cursor:pointer;}
+.dash-medico-link:hover{color:var(--blue);text-decoration:underline;}
+
+/* Hierarquia Mercado x Médico */
+.mercado-primary-row td{
+  background:#E8F0FD;
+  border-top:2px solid #1B7FE8;
+  border-bottom:1px solid #C7D9F5;
+  font-weight:700;
+}
+.mercado-primary-row td:first-child{
+  border-left:5px solid #1B7FE8;
+}
+.gm-medico-row td{
+  background:#F4F7FE;
+  border-bottom:1px solid #E4EDF8;
+}
+.gm-medico-row td:first-child{
+  border-left:5px solid #4DAAFF;
+  color:#4DAAFF;
+  font-size:18px;
+  vertical-align:middle;
+}
+.gm-medico-row .medico-toggle{
+  padding-left:8px !important;
+  font-weight:500;
+}
+.gm-mercado-chip{
+  display:inline-block;
+  background:#1B7FE8;
+  color:#fff;
+  font-size:9.5px;
+  font-weight:700;
+  padding:1px 7px;
+  border-radius:10px;
+  margin-right:6px;
+  vertical-align:middle;
+  letter-spacing:.2px;
+  text-transform:uppercase;
+  opacity:.85;
+}
+.gm-marca-row td{
+  background:#FAFCFF;
+  border-bottom:1px dashed #E4E9F4;
+}
+.gm-marca-row td:first-child{
+  border-left:5px solid #CBD5E1;
+}
+.m5-mercado-row td{background:#E8F0FD;border-top:2px solid #1B7FE8;border-bottom:1px solid #C7D9F5;font-weight:700;}
+.m5-mercado-row td:first-child{border-left:5px solid #1B7FE8;}
+.m5-mercado-row:hover td{background:#D6E4FA;cursor:pointer;}
+.mkt6-row td{font-weight:600;}
+.mkt6-row:hover td{background:rgba(27,127,232,.04);}
+.mkt6-medico-row td{background:#F8FAFF;}
+.mkt6-marca-row td{background:#fff;font-size:12px;color:var(--sub);border-bottom:1px dashed #E4E9F4;}
+.m5-medico-row td{background:#F8FAFF;border-bottom:1px solid #E8EFF8;}
+.m5-medico-row td:first-child{border-left:5px solid #4DAAFF;}
+</style>
+</head>
+<body>
+
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-text">Processando planilha...</div>
+</div>
+
+<div id="setorModalOverlay" class="setor-modal-overlay">
+  <div class="setor-modal">
+    <h3>Marque aqui seu setor</h3>
+    <p class="setor-modal-sub">Selecione o(s) setor(es) que você quer carregar. Isso deixa o painel mais rápido, principalmente no celular.</p>
+    <div id="setorModalList" class="setor-modal-list"></div>
+    <div class="setor-modal-actions">
+      <button type="button" class="btn secondary" id="setorModalSkip">Carregar todos os setores</button>
+      <button type="button" class="btn" id="setorModalConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div id="chartModalOverlay" class="setor-modal-overlay">
+  <div class="setor-modal chart-modal">
+    <h3 id="chartModalTitle">Evolução TT ANT x TT ATUAL</h3>
+    <p class="setor-modal-sub">Comparativo por marca dentro do mercado selecionado.</p>
+    <div id="chartModalBody"></div>
+    <div class="setor-modal-actions">
+      <button type="button" class="btn secondary" id="chartModalClose">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div id="insightModalOverlay" class="setor-modal-overlay">
+  <div class="setor-modal insight-modal">
+    <div class="insight-header">
+      <span class="insight-icon">🤖</span>
+      <div>
+        <h3 id="insightModalTitle">Insight do Médico</h3>
+        <p class="setor-modal-sub" id="insightModalSub"></p>
+      </div>
+    </div>
+    <div id="insightModalBody" class="insight-body">
+      <div class="insight-loading"><div class="insight-spinner"></div><span>Analisando dados com IA...</span></div>
+    </div>
+    <div class="setor-modal-actions">
+      <button type="button" class="btn secondary" id="insightModalClose">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PIN Screen -->
+<div id="pinScreen" style="position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:24px;">
+  <div style="text-align:center;">
+    <div style="width:72px;height:72px;background:var(--blue);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff;margin:0 auto 16px;">EF</div>
+    <div style="color:#fff;font-size:22px;font-weight:800;margin-bottom:4px;">Painel de Auditoria Médica</div>
+    <div style="color:rgba(255,255,255,.4);font-size:13px;">Digite o PIN para acessar</div>
+  </div>
+  <div id="pinDots" style="display:flex;gap:14px;">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <div id="pinError" style="color:var(--coral);font-size:13px;height:18px;"></div>
+  <div style="display:grid;grid-template-columns:repeat(3,72px);gap:12px;">
+    <button class="pin-key" data-n="1">1</button>
+    <button class="pin-key" data-n="2">2</button>
+    <button class="pin-key" data-n="3">3</button>
+    <button class="pin-key" data-n="4">4</button>
+    <button class="pin-key" data-n="5">5</button>
+    <button class="pin-key" data-n="6">6</button>
+    <button class="pin-key" data-n="7">7</button>
+    <button class="pin-key" data-n="8">8</button>
+    <button class="pin-key" data-n="9">9</button>
+    <button class="pin-key pin-del" data-n="del" style="font-size:18px;">⌫</button>
+    <button class="pin-key" data-n="0">0</button>
+    <button class="pin-key pin-ok" data-n="ok">OK</button>
+  </div>
+  <div style="color:rgba(255,255,255,.2);font-size:11px;margin-top:8px;">Desenvolvido por Diogo Duarte · Eurofarma</div>
+</div>
+
+<div id="landingScreen">
+
+  <div class="land-main">
+    <div class="biglogo"><div class="land-mark">EF</div></div>
+    <h1>Painel de Auditoria Médica</h1>
+    <p class="tagline">A plataforma que facilita a vida do Propagandista.</p>
+
+    <div class="land-features">
+      <div class="land-feat-card">
+        <span class="lfc-icon">📊</span>
+        <div class="lfc-title">Dashboard</div>
+        <div class="lfc-sub">Visão geral dos indicadores e Top 50 prescritores</div>
+      </div>
+      <div class="land-feat-card">
+        <span class="lfc-icon">💊</span>
+        <div class="lfc-title">Análise por Marca</div>
+        <div class="lfc-sub">Compare TT e EUF por marca com evolução</div>
+      </div>
+      <div class="land-feat-card">
+        <span class="lfc-icon">🏪</span>
+        <div class="lfc-title">Médico x Mercado</div>
+        <div class="lfc-sub">Hierarquia médico → mercado → marca</div>
+      </div>
+      <div class="land-feat-card">
+        <span class="lfc-icon">🏬</span>
+        <div class="lfc-title">Mercado</div>
+        <div class="lfc-sub">Visão por mercado com posição competitiva</div>
+      </div>
+      <div class="land-feat-card">
+        <span class="lfc-icon">🤖</span>
+        <div class="lfc-title">Insight com IA</div>
+        <div class="lfc-sub">Análise estratégica de pré-visita por médico</div>
+      </div>
+      <div class="land-feat-card">
+        <span class="lfc-icon">🏙️</span>
+        <div class="lfc-title">Médicos por Cidade</div>
+        <div class="lfc-sub">Filtre e analise por município</div>
+      </div>
+    </div>
+
+    <label class="land-dropzone" for="fileUploadLanding">
+      <div class="icon">⟳</div>
+      <div class="main-txt">Carregar planilha (.xlsx)</div>
+      <div class="sub-txt">Clique aqui para selecionar o arquivo do mês</div>
+    </label>
+    <input type="file" id="fileUploadLanding" accept=".xlsx,.xls">
+    <span id="landingStatus"></span>
+    <div class="land-secure-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Dados processados apenas no seu navegador · Nenhuma informação enviada para servidores</div>
+
+    <div class="land-footer">
+      <span class="land-author">Desenvolvido por <strong>Diogo Duarte</strong> · Propagandista Eurofarma · <span class="land-version">v 1.0</span></span>
+      <a class="land-whatsapp" href="https://wa.me/5531971860011?text=Ol%C3%A1%20Diogo!%20Tenho%20uma%20sugest%C3%A3o%20para%20o%20Painel%20de%20Auditoria%20M%C3%A9dica." target="_blank" rel="noopener" title="Enviar sugestão via WhatsApp">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.558 4.112 1.532 5.836L.057 23.213a.5.5 0 00.63.63l5.377-1.475A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-4.99-1.368l-.358-.213-3.712 1.018 1.018-3.712-.213-.358A9.808 9.808 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Sugestões e melhorias
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="appScreen">
+<div class="app-flex">
+  <aside class="app-side">
+    <div class="side-logo">
+      <div class="mark">EF</div>
+      <div>
+        <div class="side-hide name">Eurofarma</div>
+        <div class="side-hide sub">Auditoria Médica</div>
+      </div>
+    </div>
+
+    <div class="side-file">
+      <div class="side-hide-block">
+        <div class="lbl">Arquivo carregado</div>
+        <div class="name" id="sideFileName">Nenhum arquivo carregado</div>
+        <div class="count" id="sideFileCount"></div>
+        <label class="side-reupload" for="fileUpload">⟳ Atualizar planilha</label>
+        <input type="file" id="fileUpload" accept=".xlsx,.xls">
+        <div id="sideUploadStatus" style="font-size:10px;margin-top:6px;color:#00C9A7;"></div>
+        <button type="button" id="btnTrocarSetor" class="side-reupload" style="margin-top:8px;">⇄ Trocar setor</button>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      <div class="side-hide nav-section-label">Visualização</div>
+      <button class="nav-btn" id="tabDashBtn"><span class="dot"></span><span class="nav-icon">📊</span><span class="nav-label side-hide">Dashboard</span></button>
+      <button class="nav-btn" id="tabMarcaBtn"><span class="dot"></span><span class="nav-icon">💊</span><span class="nav-label side-hide">Marca</span></button>
+      <button class="nav-btn" id="tabMercadoBtn"><span class="dot"></span><span class="nav-icon">🏪</span><span class="nav-label side-hide">Médico x Mercado</span></button>
+      <button class="nav-btn" id="tabMkt6Btn"><span class="dot"></span><span class="nav-icon">🏬</span><span class="nav-label side-hide">Mercado</span></button>
+      <button class="nav-btn" id="tabMercado2Btn"><span class="dot"></span><span class="nav-icon">👨‍⚕️</span><span class="nav-label side-hide">Médico</span></button>
+      <button class="nav-btn" id="tabCidadeBtn"><span class="dot"></span><span class="nav-icon">🏙️</span><span class="nav-label side-hide">Cidade</span></button>
+    </nav>
+
+    <div class="side-foot side-hide-block">
+      <div class="lbl">Dúvidas e sugestões:</div>
+      <a href="mailto:diogossduarte@icloud.com">diogossduarte@icloud.com</a>
+      <div class="lbl" style="margin-top:8px;font-size:9px;opacity:.5;">v 1.0</div>
+    </div>
+    <button type="button" class="exit-btn" id="btnSair" title="Sair da plataforma">
+      <span class="exit-icon">⏻</span>
+    </button>
+  </aside>
+
+  <div class="app-content">
+    <header class="topbar" id="topbarMarca">
+      <div class="tb-left">
+        <span class="tb-title">Marca</span>
+        <span class="tb-count" id="rowcount"></span>
+      </div>
+    </header>
+    <header class="topbar" id="topbarMercado" style="display:none;">
+      <div class="tb-left">
+        <span class="tb-title">Médico x Mercado</span>
+        <span class="tb-count" id="rowcount2"></span>
+      </div>
+    </header>
+    <header class="topbar" id="topbarMkt6" style="display:none;">
+      <div class="tb-left">
+        <span class="tb-title">Mercado</span>
+        <span class="tb-count" id="rowcountMkt6"></span>
+      </div>
+    </header>
+    <header class="topbar" id="topbarMercado2" style="display:none;">
+      <div class="tb-left">
+        <span class="tb-title">Médico</span>
+        <span class="tb-count" id="rowcount3"></span>
+      </div>
+    </header>
+    <header class="topbar" id="topbarCidade" style="display:none;">
+      <div class="tb-left">
+        <span class="tb-title">Cidade</span>
+        <span class="tb-count" id="rowcount4"></span>
+      </div>
+    </header>
+    <header class="topbar" id="topbarDash" style="display:none;">
+      <div class="tb-left"><span class="tb-title">Dashboard</span></div>
+    </header>
+
+    <div class="content-pad" id="viewMarca">
+      <div class="kpi-row" id="kpiRowMarca"></div>
+      <div class="panel">
+        <div class="panel-h">Filtrar por marca e visitado</div>
+        <div class="toolbar">
+          <label class="muted">Marca</label>
+          <div class="msel" id="fMarca"></div>
+          <div class="visitado-filter"><span class="muted">Visitado?</span><label class="v-opt"><input type="checkbox" id="fMedicoSim"> Sim</label><label class="v-opt"><input type="checkbox" id="fMedicoNao"> Não</label></div>
+          <button class="btn btn-clear" id="btnClear1" title="Limpar filtros">✕ Limpar</button><button class="btn" id="btnExport">Exportar Excel</button>
+          <button class="btn btn-icon" id="btnPie1" title="Gráfico ESP x TT ATUAL">📊</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">Médicos com prescrição na marca selecionada</div>
+        <div class="tablewrap">
+          <table id="tbl">
+            <thead><tr id="thead"></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div id="placeholderMsg" class="placeholder">Selecione uma marca acima para ver os médicos.</div>
+        <div id="pagination1" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-pad" id="viewMercado" style="display:none;">
+      <div class="kpi-row" id="kpiRowMercado"></div>
+      <div class="panel">
+        <div class="panel-h">Filtrar por mercado e visitado</div>
+        <div class="toolbar">
+          <label class="muted">Mercado</label>
+          <div class="msel" id="fMercado"></div>
+          <div class="visitado-filter"><span class="muted">Visitado?</span><label class="v-opt"><input type="checkbox" id="fMedico2Sim"> Sim</label><label class="v-opt"><input type="checkbox" id="fMedico2Nao"> Não</label></div>
+          <button class="btn btn-clear" id="btnClear2" title="Limpar filtros">✕ Limpar</button><button class="btn" id="btnExport2">Exportar Excel</button>
+          <button class="btn btn-icon" id="btnPie2" title="Gráfico ESP x TT ATUAL">📊</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">Médicos com prescrição no mercado selecionado</div>
+        <div class="tablewrap">
+          <table id="tbl2">
+            <thead><tr id="thead2"></tr></thead>
+            <tbody id="tbody2"></tbody>
+          </table>
+        </div>
+        <div id="placeholderMsg2" class="placeholder">Selecione um mercado acima para ver os médicos.</div>
+        <div id="pagination2" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-pad" id="viewMkt6" style="display:none;">
+      <div class="kpi-row" id="kpiRowMkt6"></div>
+      <div class="panel">
+        <div class="panel-h">Filtrar por mercado e visitado</div>
+        <div class="toolbar">
+          <label class="muted">Mercado</label>
+          <div class="msel" id="fMkt6Mercado"></div>
+          <div class="visitado-filter"><span class="muted">Visitado?</span><label class="v-opt"><input type="checkbox" id="fMkt6Sim"> Sim</label><label class="v-opt"><input type="checkbox" id="fMkt6Nao"> Não</label></div>
+          <button class="btn btn-clear" id="btnClearMkt6" title="Limpar filtros">✕ Limpar</button>
+          <button class="btn" id="btnExportMkt6">Exportar Excel</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-h">Mercados — clique em ▸ para ver os médicos</div>
+        <div class="tablewrap">
+          <table id="tblMkt6">
+            <thead><tr id="theadMkt6"></tr></thead>
+            <tbody id="tbodyMkt6"></tbody>
+          </table>
+        </div>
+        <div id="placeholderMkt6" class="placeholder">Selecione um mercado acima ou aguarde o carregamento.</div>
+        <div id="paginationMkt6" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-pad" id="viewMercado2" style="display:none;">
+      <div class="kpi-row" id="kpiRowMercado2"></div>
+      <div class="panel">
+        <div class="panel-h">Filtrar por médico e visitado</div>
+        <div class="toolbar">
+          <label class="muted">Médico</label>
+          <div class="msel" id="fMercado3"></div>
+          <div class="visitado-filter"><span class="muted">Visitado?</span><label class="v-opt"><input type="checkbox" id="fMedico3Sim"> Sim</label><label class="v-opt"><input type="checkbox" id="fMedico3Nao"> Não</label></div>
+          <button class="btn btn-clear" id="btnClear3" title="Limpar filtros">✕ Limpar</button><button class="btn" id="btnExport3">Exportar Excel</button>
+          <button class="btn btn-icon" id="btnPie3" title="Gráfico ESP x TT ATUAL">📊</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">Médico(s) selecionado(s)</div>
+        <div class="tablewrap">
+          <table id="tbl3">
+            <thead><tr id="thead3"></tr></thead>
+            <tbody id="tbody3"></tbody>
+          </table>
+        </div>
+        <div id="placeholderMsg3" class="placeholder">Busque ou selecione um ou mais médicos acima.</div>
+        <div id="pagination3" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-pad" id="viewCidade" style="display:none;">
+      <div class="kpi-row" id="kpiRowCidade"></div>
+      <div class="panel">
+        <div class="panel-h">Filtrar por cidade e visitado</div>
+        <div class="toolbar">
+          <label class="muted">Cidade</label>
+          <div class="msel" id="fCidade"></div>
+          <div class="visitado-filter"><span class="muted">Visitado?</span><label class="v-opt"><input type="checkbox" id="fMedico4Sim"> Sim</label><label class="v-opt"><input type="checkbox" id="fMedico4Nao"> Não</label></div>
+          <button class="btn btn-clear" id="btnClear4" title="Limpar filtros">✕ Limpar</button><button class="btn" id="btnExport4">Exportar Excel</button>
+          <button class="btn btn-icon" id="btnPie4" title="Gráfico ESP x TT ATUAL">📊</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">Médicos com prescrição na cidade selecionada</div>
+        <div class="tablewrap">
+          <table id="tbl4">
+            <thead><tr id="thead4"></tr></thead>
+            <tbody id="tbody4"></tbody>
+          </table>
+        </div>
+        <div id="placeholderMsg4" class="placeholder">Selecione uma cidade acima para ver os médicos.</div>
+        <div id="pagination4" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-pad" id="viewDash" style="display:none;">
+      <div class="dash-toolbar">
+        <label class="muted">Filtrar por Mercado</label>
+        <div class="msel" id="dashFiltroMercado"></div>
+      </div>
+      <div class="dash-kpis" id="dashKpis"></div>
+      <div class="dash-charts">
+        <div class="dash-chart-box">
+          <div class="panel-h">Top 50 Prescritores — TT Atual</div>
+          <div class="dash-chart-area" id="dashChartTT"></div>
+        </div>
+        <div class="dash-chart-box">
+          <div class="panel-h">Top 50 Prescritores — EUF Atual</div>
+          <div class="dash-chart-area" id="dashChartEUF"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const XLSX_CDN_URLS = [
+  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js'
+];
+
+let xlsxLoadPromise = null;
+function ensureXLSXLoaded(){
+  if(window.XLSX) return Promise.resolve();
+  if(xlsxLoadPromise) return xlsxLoadPromise;
+
+  xlsxLoadPromise = (async () => {
+    for(const url of XLSX_CDN_URLS){
+      try{
+        await new Promise((resolve, reject)=>{
+          const s = document.createElement('script');
+          s.src = url;
+          const timer = setTimeout(()=>{ reject(new Error('Tempo esgotado ao carregar ' + url)); }, 6000);
+          s.onload = () => { clearTimeout(timer); resolve(); };
+          s.onerror = () => { clearTimeout(timer); reject(new Error('Falha ao carregar ' + url)); };
+          document.head.appendChild(s);
+        });
+        if(window.XLSX) return;
+      } catch(e){ /* try next source */ }
+    }
+    throw new Error('Não foi possível carregar a biblioteca de planilhas. Verifique sua conexão de internet ou se a rede está bloqueando o acesso a cdnjs.cloudflare.com, cdn.jsdelivr.net ou unpkg.com.');
+  })();
+
+  return xlsxLoadPromise;
+}
+// Start loading immediately in the background so it's likely ready by the time the user uploads a file
+ensureXLSXLoaded().catch(()=>{ /* surfaced later when actually needed */ });
+
+window.addEventListener('error', function(e){
+  const el = document.getElementById('landingStatus') || document.body;
+  const msg = document.createElement('div');
+  msg.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#b3261e;color:#fff;padding:10px 16px;font-family:sans-serif;font-size:13px;z-index:99999;';
+  msg.textContent = 'Erro ao carregar o painel: ' + (e.message || 'erro desconhecido') + '. Tente atualizar a página ou usar outro navegador (Chrome recomendado).';
+  document.body.appendChild(msg);
+});
+
+let COLS = [];
+let globalSetorFilter = null;
+let IDX = {};
+let ROWS = [];
+let ALL_ROWS = [];
+function val(r,name){ return r[IDX[name]]; }
+
+function uniqueSorted(colName){
+  const s = new Set();
+  ROWS.forEach(r=>{ const v = val(r,colName); if(v!=='') s.add(v); });
+  return Array.from(s).sort();
+}
+function uniqueSortedFiltered(colName){
+  const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+  const s = new Set();
+  ROWS.forEach(r=>{
+    if(setor.length && !setor.includes(val(r,'Setor'))) return;
+    const v = val(r,colName); if(v!=='') s.add(v);
+  });
+  return Array.from(s).sort();
+}
+function sortIgnoringUnderscore(values){
+  return [...values].sort((a,b)=> a.replace(/_/g,'').localeCompare(b.replace(/_/g,'')));
+}
+function fillSelect(sel, values, labelFn){
+  values.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent= labelFn ? labelFn(v) : v; sel.appendChild(o); });
+}
+function stripLeadingUnderscore(v){ return v.replace(/^_+/,''); }
+
+const DISPLAY_COLS_FULL = ['Médico','ESP','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','MKS ANT','MKS ATUAL','EVOLUÇÃO'];
+const DISPLAY_COLS_NO_MKS = ['Médico','ESP','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','EVOLUÇÃO'];
+const DISPLAY_COLS_MERCADO2_FLAT = ['Mercado','Médico','Marca','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','EVOLUÇÃO MERCADO','EVOLUÇÃO EUF'];
+const DISPLAY_COLS_POR_MEDICO = ['Médico','ESP','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','EVOLUÇÃO','EVOLUÇÃO EUF'];
+const DISPLAY_COLS_MERCADO = ['Médico','ESP','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','EVOLUÇÃO MERCADO','EVOLUÇÃO EUF'];
+const DISPLAY_COLS_MEDICO = ['Mercado','Marca','TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','EVOLUÇÃO'];
+function pct(x){ return x==='' ? '' : (x*100).toFixed(1)+'%'; }
+function evolucao(r){
+  const ant = val(r,'TT ANT'), atual = val(r,'TT ATUAL');
+  if(ant==='' || atual==='' || ant===0) return '';
+  return (atual-ant)/ant;
+}
+function evolucaoEuf(r){
+  const ant = val(r,'EUF ANT'), atual = val(r,'EUF ATUAL');
+  if(ant==='' || atual==='' || ant===0) return '';
+  return (atual-ant)/ant;
+}
+
+function createInlineCheckList(containerId, values, onChange){
+  const container = document.getElementById(containerId);
+  const selected = new Set();
+  container.innerHTML = '';
+
+  const selectAllLabel = document.createElement('label');
+  selectAllLabel.className = 'inline-check-opt select-all';
+  selectAllLabel.innerHTML = `<input type="checkbox"> Todos`;
+  const selectAllCb = selectAllLabel.querySelector('input');
+  container.appendChild(selectAllLabel);
+
+  const checkboxes = [];
+  values.forEach(v=>{
+    const label = document.createElement('label');
+    label.className = 'inline-check-opt';
+    label.innerHTML = `<input type="checkbox" value="${v.replace(/"/g,'&quot;')}"> ${v}`;
+    const cb = label.querySelector('input');
+    checkboxes.push(cb);
+    cb.addEventListener('change', ()=>{
+      if(cb.checked) selected.add(v); else selected.delete(v);
+      selectAllCb.checked = selected.size===values.length && values.length>0;
+      onChange(Array.from(selected));
+    });
+    container.appendChild(label);
+  });
+
+  selectAllCb.addEventListener('change', ()=>{
+    if(selectAllCb.checked){
+      values.forEach(v=>selected.add(v));
+      checkboxes.forEach(cb=>cb.checked=true);
+    } else {
+      selected.clear();
+      checkboxes.forEach(cb=>cb.checked=false);
+    }
+    onChange(Array.from(selected));
+  });
+
+  return {
+    getSelected: ()=>Array.from(selected),
+    clear: ()=>{ selected.clear(); checkboxes.forEach(cb=>cb.checked=false); selectAllCb.checked=false; onChange([]); },
+    selectAll: ()=>{ selectAllCb.checked=true; selectAllCb.dispatchEvent(new Event('change')); }
+  };
+}
+
+function createMultiSelect(containerId, values, placeholder, onChange){
+  const container = document.getElementById(containerId);
+  const selected = new Set();
+  container.innerHTML = `<button type="button" class="msel-btn">${placeholder}</button><div class="msel-panel"></div>`;
+  const btn = container.querySelector('.msel-btn');
+  const panel = container.querySelector('.msel-panel');
+
+  const selectAllDiv = document.createElement('label');
+  selectAllDiv.className = 'msel-opt msel-selectall';
+  selectAllDiv.innerHTML = `<input type="checkbox"> <b>Selecionar todos</b>`;
+  const selectAllCheckbox = selectAllDiv.querySelector('input');
+  panel.appendChild(selectAllDiv);
+
+  const checkboxes = [];
+  values.forEach(v=>{
+    const opt = document.createElement('label');
+    opt.className = 'msel-opt';
+    opt.innerHTML = `<input type="checkbox" value="${v}"> ${v}`;
+    const cb = opt.querySelector('input');
+    checkboxes.push(cb);
+    cb.addEventListener('change', (e)=>{
+      if(e.target.checked) selected.add(v); else selected.delete(v);
+      syncSelectAll();
+      updateLabel();
+      onChange(Array.from(selected));
+    });
+    panel.appendChild(opt);
+  });
+
+  function syncSelectAll(){
+    selectAllCheckbox.checked = selected.size===values.length && values.length>0;
+  }
+  selectAllCheckbox.addEventListener('change', (e)=>{
+    if(e.target.checked){
+      values.forEach(v=>selected.add(v));
+      checkboxes.forEach(cb=>cb.checked=true);
+    } else {
+      selected.clear();
+      checkboxes.forEach(cb=>cb.checked=false);
+    }
+    updateLabel();
+    onChange(Array.from(selected));
+  });
+
+  const clearDiv = document.createElement('div');
+  clearDiv.className = 'msel-clear';
+  clearDiv.textContent = 'Limpar seleção';
+  clearDiv.addEventListener('click', ()=>{
+    selected.clear();
+    panel.querySelectorAll('input').forEach(i=>i.checked=false);
+    updateLabel();
+    onChange([]);
+  });
+  panel.appendChild(clearDiv);
+
+  function updateLabel(){
+    if(selected.size===0) btn.textContent = placeholder;
+    else if(selected.size===values.length) btn.textContent = 'Todos selecionados';
+    else if(selected.size===1) btn.textContent = Array.from(selected)[0];
+    else btn.textContent = `${selected.size} selecionados`;
+  }
+
+  btn.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    document.querySelectorAll('.msel.open').forEach(m=>{ if(m!==container) m.classList.remove('open'); });
+    container.classList.toggle('open');
+  });
+  document.addEventListener('click', (e)=>{
+    if(!container.contains(e.target)) container.classList.remove('open');
+  });
+
+  return {
+    getSelected: ()=>Array.from(selected),
+    clear: ()=>{ selected.clear(); panel.querySelectorAll('input').forEach(i=>i.checked=false); updateLabel(); onChange([]); },
+    selectAll: ()=>{
+      values.forEach(v=>selected.add(v));
+      panel.querySelectorAll('input').forEach(i=>i.checked=true);
+      selectAllCheckbox.checked = true;
+      updateLabel();
+      onChange(Array.from(selected));
+    }
+  };
+}
+
+// ---- Gráfico TT ANT x TT ATUAL por marca (mercado-row) ----
+function showMercadoChartByMercado(mercadoVal){
+  const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+  let rows = ROWS.filter(r=>val(r,'Mercado')===mercadoVal);
+  if(setor.length) rows = rows.filter(r=>setor.includes(val(r,'Setor')));
+
+  // Aggregate by Marca
+  const byMarca = {}; const marcaOrder = [];
+  rows.forEach(r=>{
+    const m = val(r,'Marca');
+    if(!byMarca[m]){ byMarca[m]={ant:0,atual:0,isEuf:/EUF/i.test(m)}; marcaOrder.push(m); }
+    const ant=val(r,'TT ANT'), atual=val(r,'TT ATUAL');
+    if(ant!=='') byMarca[m].ant+=ant;
+    if(atual!=='') byMarca[m].atual+=atual;
+  });
+
+  const items = marcaOrder.map(m=>({marca:m,...byMarca[m]}))
+    .sort((a,b)=>b.atual-a.atual);
+
+  const overlay = document.getElementById('chartModalOverlay');
+  const title = document.getElementById('chartModalTitle');
+  const body = document.getElementById('chartModalBody');
+  title.textContent = `${stripLeadingUnderscore(mercadoVal)} — TT ANT x TT ATUAL por marca`;
+
+  if(!items.length){
+    body.innerHTML = '<div class="chart-empty">Sem dados.</div>';
+  } else {
+    body.innerHTML = `
+      <div class="chart-legend">
+        <span><span class="dot" style="background:#94A3B8"></span> TT ANT</span>
+        <span><span class="dot" style="background:#1B7FE8"></span> TT ATUAL</span>
+        <span><span class="dot" style="background:#00C9A7"></span> TT ATUAL (EUF)</span>
+      </div>
+      ${buildBarChartSvgEuf(items)}
+    `;
+  }
+  overlay.classList.add('show');
+}
+
+function buildBarChartSvgEuf(items){
+  const barGroupW = 82;
+  const W = Math.max(420, 50 + items.length*barGroupW), H = 300;
+  const padL = 44, padR = 18, padT = 24, padB = 64;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const maxV = Math.max(1, ...items.flatMap(it=>[it.ant, it.atual]));
+  const groupW = innerW/items.length;
+  const barW = Math.min(26, groupW*0.32);
+
+  function yAt(v){ return padT + innerH - (v/maxV*innerH); }
+
+  let gridHtml = '';
+  for(let g=0;g<=4;g++){
+    const gy = padT + innerH - (g/4*innerH);
+    gridHtml += `<line x1="${padL}" y1="${gy}" x2="${W-padR}" y2="${gy}" stroke="#E4E9F4" stroke-width="1"/>`;
+    gridHtml += `<text x="${padL-8}" y="${gy+4}" font-size="10" fill="#94A3B8" text-anchor="end">${Math.round(g/4*maxV).toLocaleString('pt-BR')}</text>`;
+  }
+
+  let barsHtml = '';
+  items.forEach((it,i)=>{
+    const cx = padL + groupW*i + groupW/2;
+    const xAnt = cx - barW - 3, xAtual = cx + 3;
+    const colorAtual = it.isEuf ? '#00C9A7' : '#1B7FE8';
+    const yAnt=yAt(it.ant), yAtual=yAt(it.atual);
+    const hAnt=padT+innerH-yAnt, hAtual=padT+innerH-yAtual;
+    barsHtml += `<rect x="${xAnt}" y="${yAnt}" width="${barW}" height="${hAnt}" fill="#94A3B8" rx="2"><title>${it.marca} TT ANT: ${it.ant.toLocaleString('pt-BR')}</title></rect>`;
+    barsHtml += `<rect x="${xAtual}" y="${yAtual}" width="${barW}" height="${hAtual}" fill="${colorAtual}" rx="2"${it.isEuf?' stroke="#00a080" stroke-width="1"':''}><title>${it.marca} TT ATUAL: ${it.atual.toLocaleString('pt-BR')}</title></rect>`;
+    if(it.ant>0||it.atual>0){
+      barsHtml += `<text x="${xAnt+barW/2}" y="${yAnt-4}" font-size="9" fill="#64748B" text-anchor="middle">${it.ant.toLocaleString('pt-BR')}</text>`;
+      barsHtml += `<text x="${xAtual+barW/2}" y="${yAtual-4}" font-size="9" fill="${it.isEuf?'#00C9A7':'#1B7FE8'}" text-anchor="middle">${it.atual.toLocaleString('pt-BR')}</text>`;
+    }
+    const ev = it.ant>0 ? ((it.atual-it.ant)/it.ant) : null;
+    const evTxt = ev===null?'–':(ev>=0?'+':'')+(ev*100).toFixed(0)+'%';
+    const evColor = ev===null?'#94A3B8':(ev>=0?'#10B981':'#EF4444');
+    barsHtml += `<text x="${cx}" y="${padT-4}" font-size="10.5" font-weight="700" fill="${evColor}" text-anchor="middle">${evTxt}</text>`;
+    if(it.isEuf){
+      barsHtml += `<text x="${cx}" y="${padT-16}" font-size="9" fill="#00C9A7" text-anchor="middle" font-weight="700">EUF</text>`;
+    }
+    const labelY = H-padB+16;
+    barsHtml += `<text x="${cx}" y="${labelY}" font-size="9.5" fill="${it.isEuf?'#00a080':'#33415C'}" text-anchor="end" font-weight="${it.isEuf?'700':'400'}"
+      transform="rotate(-40 ${cx} ${labelY})">${(it.marca.length>16?it.marca.slice(0,16)+'…':it.marca)}</text>`;
+  });
+
+  return `<div style="overflow-x:auto;"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="font-family:Inter,sans-serif;display:block;">
+    ${gridHtml}${barsHtml}
+  </svg></div>`;
+}
+
+function showMercadoChart(crm, mercadoVal){
+  const rows = ROWS.filter(rr => val(rr,'CRM')===crm && val(rr,'Mercado')===mercadoVal);
+  const overlay = document.getElementById('chartModalOverlay');
+  const title = document.getElementById('chartModalTitle');
+  const body = document.getElementById('chartModalBody');
+  title.textContent = `${mercadoVal} — TT ANT x TT ATUAL por marca`;
+
+  if(!rows.length){
+    body.innerHTML = '<div class="chart-empty">Sem dados suficientes para gerar o gráfico.</div>';
+  } else {
+    const items = rows.map(r=>{
+      const ant = val(r,'TT ANT'); const atual = val(r,'TT ATUAL');
+      const a = ant===''?0:ant, b = atual===''?0:atual;
+      const ev = (ant!=='' && atual!=='' && ant!==0) ? (atual-ant)/ant : null;
+      return { marca: val(r,'Marca'), ant: a, atual: b, ev };
+    });
+    body.innerHTML = `
+      <div class="chart-legend">
+        <span><span class="dot" style="background:#94A3B8"></span> TT ANT</span>
+        <span><span class="dot" style="background:#1B7FE8"></span> TT ATUAL</span>
+      </div>
+      ${buildBarChartSvg(items)}
+    `;
+  }
+  overlay.classList.add('show');
+}
+
+function buildBarChartSvg(items){
+  const barGroupW = 78;
+  const W = Math.max(420, 50 + items.length*barGroupW), H = 300;
+  const padL = 44, padR = 18, padT = 16, padB = 64;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const maxV = Math.max(1, ...items.flatMap(it=>[it.ant, it.atual]));
+  const groupW = innerW/items.length;
+  const barW = Math.min(26, groupW*0.32);
+
+  function yAt(v){ return padT + innerH - (v/maxV*innerH); }
+
+  let gridHtml = '';
+  for(let g=0; g<=4; g++){
+    const gy = padT + innerH - (g/4*innerH);
+    const gv = Math.round(g/4*maxV);
+    gridHtml += `<line x1="${padL}" y1="${gy}" x2="${W-padR}" y2="${gy}" stroke="#E4E9F4" stroke-width="1"/>`;
+    gridHtml += `<text x="${padL-8}" y="${gy+4}" font-size="10" fill="#94A3B8" text-anchor="end">${gv.toLocaleString('pt-BR')}</text>`;
+  }
+
+  let barsHtml = '';
+  items.forEach((it,i)=>{
+    const cx = padL + groupW*i + groupW/2;
+    const xAnt = cx - barW - 3;
+    const xAtual = cx + 3;
+    const yAnt = yAt(it.ant), yAtual = yAt(it.atual);
+    const hAnt = padT+innerH-yAnt, hAtual = padT+innerH-yAtual;
+
+    barsHtml += `<rect x="${xAnt}" y="${yAnt}" width="${barW}" height="${hAnt}" fill="#94A3B8" rx="2">
+      <title>${it.marca} — TT ANT: ${it.ant.toLocaleString('pt-BR')}</title></rect>`;
+    barsHtml += `<rect x="${xAtual}" y="${yAtual}" width="${barW}" height="${hAtual}" fill="#1B7FE8" rx="2">
+      <title>${it.marca} — TT ATUAL: ${it.atual.toLocaleString('pt-BR')}</title></rect>`;
+
+    if(it.ant>0 || it.atual>0){
+      barsHtml += `<text x="${xAnt+barW/2}" y="${yAnt-4}" font-size="9" fill="#64748B" text-anchor="middle">${it.ant.toLocaleString('pt-BR')}</text>`;
+      barsHtml += `<text x="${xAtual+barW/2}" y="${yAtual-4}" font-size="9" fill="#1B7FE8" text-anchor="middle">${it.atual.toLocaleString('pt-BR')}</text>`;
+    }
+
+    const evTxt = it.ev===null ? '–' : (it.ev>=0?'+':'')+(it.ev*100).toFixed(0)+'%';
+    const evColor = it.ev===null ? '#94A3B8' : (it.ev>=0?'#10B981':'#EF4444');
+    barsHtml += `<text x="${cx}" y="${padT-2}" font-size="10.5" font-weight="700" fill="${evColor}" text-anchor="middle">${evTxt}</text>`;
+
+    const labelY = H-padB+16;
+    barsHtml += `<text x="${cx}" y="${labelY}" font-size="9.5" fill="#33415C" text-anchor="end"
+      transform="rotate(-40 ${cx} ${labelY})">${(it.marca.length>16?it.marca.slice(0,16)+'…':it.marca)}</text>`;
+  });
+
+  return `<div style="overflow-x:auto;"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="font-family:Inter,sans-serif;display:block;">
+    ${gridHtml}
+    ${barsHtml}
+  </svg></div>`;
+}
+
+// ---- Gráfico de pizza ESP x EUF ATUAL ----
+const PIE_COLORS = [
+  '#1B7FE8','#00C9A7','#FFD93D','#FF6B6B','#A78BFA','#34D399','#FB923C',
+  '#60A5FA','#F472B6','#4ADE80','#FACC15','#F87171','#C084FC','#38BDF8'
+];
+
+function showPieChart(rows){
+  if(!rows || !rows.length){ alert('Sem dados para gerar o gráfico.'); return; }
+
+  // aggregate EUF ATUAL by ESP
+  const byEsp = {};
+  rows.forEach(r=>{
+    const esp = val(r,'ESP') || 'Sem ESP';
+    const tt = val(r,'TT ATUAL');
+    if(tt==='') return;
+    byEsp[esp] = (byEsp[esp]||0) + tt;
+  });
+
+  const entries = Object.entries(byEsp)
+    .filter(([,v])=>v>0)
+    .sort(([,a],[,b])=>b-a);
+
+  if(!entries.length){ alert('Sem dados de TT ATUAL para gerar o gráfico.'); return; }
+
+  const total = entries.reduce((s,[,v])=>s+v, 0);
+
+  // build pie SVG
+  const R = 110, CX = 150, CY = 140;
+  let slices = '';
+  let angle = -Math.PI/2;
+  entries.forEach(([esp, v], i)=>{
+    const slice = (v/total)*2*Math.PI;
+    const x1 = CX + R*Math.cos(angle);
+    const y1 = CY + R*Math.sin(angle);
+    angle += slice;
+    const x2 = CX + R*Math.cos(angle);
+    const y2 = CY + R*Math.sin(angle);
+    const large = slice > Math.PI ? 1 : 0;
+    const color = PIE_COLORS[i % PIE_COLORS.length];
+    const pct = (v/total*100).toFixed(1);
+    slices += `<path d="M${CX},${CY} L${x1.toFixed(2)},${y1.toFixed(2)} A${R},${R} 0 ${large},1 ${x2.toFixed(2)},${y2.toFixed(2)} Z"
+      fill="${color}" stroke="#fff" stroke-width="1.5"><title>${esp}: ${v.toLocaleString('pt-BR')} (${pct}%)</title></path>`;
+  });
+
+  const legend = entries.map(([esp,v],i)=>{
+    const pct = (v/total*100).toFixed(1);
+    const color = PIE_COLORS[i % PIE_COLORS.length];
+    return `<div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#33415C;margin-bottom:5px;">
+      <span style="width:12px;height:12px;border-radius:3px;background:${color};flex-shrink:0;display:inline-block;"></span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esp}">${esp}</span>
+      <span style="font-weight:600;flex-shrink:0;">${pct}%</span>
+    </div>`;
+  }).join('');
+
+  const body = document.getElementById('chartModalBody');
+  const title = document.getElementById('chartModalTitle');
+  title.textContent = 'TT ATUAL por Especialidade (ESP)';
+  body.innerHTML = `
+    <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
+      <svg viewBox="0 0 300 280" width="260" height="240" style="flex-shrink:0;">
+        ${slices}
+        <text x="${CX}" y="${CY+4}" text-anchor="middle" font-size="11" fill="#64748B">${total.toLocaleString('pt-BR')}</text>
+        <text x="${CX}" y="${CY+16}" text-anchor="middle" font-size="9" fill="#94A3B8">TT ATUAL total</text>
+      </svg>
+      <div style="flex:1;min-width:160px;max-height:220px;overflow-y:auto;">${legend}</div>
+    </div>
+  `;
+  document.getElementById('chartModalOverlay').classList.add('show');
+}
+
+const tabIndexMap = {'1':0,'2':1,'3':3,'4':4};
+['1','2','3','4'].forEach(n=>{
+  const btn = document.getElementById('btnPie'+n);
+  if(btn) btn.addEventListener('click', ()=>{
+    const tab = allTabs[tabIndexMap[n]];
+    showPieChart(tab.ctl.getCurrentRows ? tab.ctl.getCurrentRows() : null);
+  });
+  const clr = document.getElementById('btnClear'+n);
+  if(clr) clr.addEventListener('click', ()=>{
+    allTabs[tabIndexMap[n]].ctl.clearFilters();
+  });
+});
+document.getElementById('chartModalClose').addEventListener('click', ()=>{
+  document.getElementById('chartModalOverlay').classList.remove('show');
+});
+document.getElementById('chartModalOverlay').addEventListener('click', (e)=>{
+  if(e.target.id==='chartModalOverlay') e.currentTarget.classList.remove('show');
+});
+
+function normalizeText(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+}
+
+function createSearchMultiSelect(containerId, values, placeholder, onChange){
+  const container = document.getElementById(containerId);
+  container.classList.add('search-box');
+  const selected = new Set();
+  const normValues = values.map(v=>({ raw:v, norm:normalizeText(v) }));
+  container.innerHTML = `
+    <div class="search-chips" style="display:none;"></div>
+    <input type="text" class="search-input" placeholder="${placeholder}" autocomplete="off">
+    <div class="search-panel"></div>`;
+  const input = container.querySelector('.search-input');
+  const panel = container.querySelector('.search-panel');
+  const chipsBox = container.querySelector('.search-chips');
+
+  function renderChips(){
+    if(selected.size===0){
+      chipsBox.style.display = 'none';
+      chipsBox.innerHTML = '';
+      return;
+    }
+    chipsBox.style.display = 'flex';
+    chipsBox.innerHTML = Array.from(selected).map(v=>
+      `<span class="search-chip">${v}<button type="button" data-remove="${v.replace(/"/g,'&quot;')}">×</button></span>`
+    ).join('');
+    chipsBox.querySelectorAll('button[data-remove]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        selected.delete(btn.dataset.remove);
+        renderChips();
+        renderPanel(input.value);
+        onChange(Array.from(selected));
+      });
+    });
+  }
+
+  function renderPanel(query){
+    const q = normalizeText(query.trim());
+    const tokens = q.split(/\s+/).filter(Boolean);
+
+    let html = '';
+    html += `<label class="search-opt msel-selectall" style="display:flex;align-items:center;gap:8px;">
+      <input type="checkbox" id="__selAll_${containerId}"> <b>Selecionar todos os médicos</b></label>`;
+    if(tokens.length===0){
+      const firstBatch = normValues;
+      firstBatch.forEach(o=>{
+        const checked = selected.has(o.raw) ? 'checked' : '';
+        html += `<label class="search-opt" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" data-val="${o.raw.replace(/"/g,'&quot;')}" ${checked}> ${o.raw}</label>`;
+      });
+      if(normValues.length>firstBatch.length){
+        html += `<div class="search-empty">Digite para refinar (${normValues.length} médicos no total)</div>`;
+      }
+    } else {
+      const matches = normValues.filter(o => o.norm.includes(q));
+      if(!matches.length){
+        html += `<div class="search-empty">Nenhum médico encontrado</div>`;
+      } else {
+        matches.forEach(o=>{
+          const checked = selected.has(o.raw) ? 'checked' : '';
+          html += `<label class="search-opt" style="display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" data-val="${o.raw.replace(/"/g,'&quot;')}" ${checked}> ${o.raw}</label>`;
+        });
+      }
+    }
+    if(selected.size>0){
+      html += `<div class="msel-clear">Limpar seleção (${selected.size})</div>`;
+    }
+    panel.innerHTML = html;
+    panel.style.display = 'block';
+
+    const selAllCb = panel.querySelector(`#__selAll_${containerId}`);
+    selAllCb.checked = selected.size===values.length && values.length>0;
+    selAllCb.addEventListener('change', (e)=>{
+      if(e.target.checked){ values.forEach(v=>selected.add(v)); }
+      else { selected.clear(); }
+      renderChips();
+      renderPanel(input.value);
+      onChange(Array.from(selected));
+    });
+
+    panel.querySelectorAll('.search-opt input[data-val]').forEach(cb=>{
+      cb.addEventListener('change', (e)=>{
+        e.stopPropagation();
+        const v = e.target.dataset.val;
+        if(e.target.checked) selected.add(v); else selected.delete(v);
+        renderChips();
+        renderPanel(input.value);
+        onChange(Array.from(selected));
+      });
+    });
+
+    const clearEl = panel.querySelector('.msel-clear');
+    if(clearEl){
+      clearEl.addEventListener('click', ()=>{
+        selected.clear();
+        renderChips();
+        renderPanel(input.value);
+        onChange([]);
+      });
+    }
+  }
+
+  input.addEventListener('focus', ()=>{ renderPanel(input.value); });
+  input.addEventListener('input', ()=>{ renderPanel(input.value); });
+  document.addEventListener('click', (e)=>{
+    if(!container.contains(e.target)){
+      panel.style.display='none';
+    }
+  });
+
+  return {
+    getSelected: ()=>Array.from(selected),
+    clear: ()=>{ selected.clear(); renderChips(); input.value=''; },
+    selectByName: (name)=>{
+      const found = normValues.find(o=>o.orig===name);
+      if(found){ selected.add(found.orig); renderChips(); }
+    }
+  };
+}
+
+function buildTab(opts){
+  const DISPLAY_COLS = opts.displayCols || DISPLAY_COLS_FULL;
+  let sortCol = 'EUF ATUAL';
+  let sortDir = -1;
+
+  const primaryEl = document.getElementById(opts.primarySel);
+  const thead = document.getElementById(opts.thead);
+  const tbody = document.getElementById(opts.tbody);
+  const table = document.getElementById(opts.table);
+  const placeholder = document.getElementById(opts.placeholder);
+  const rowcount = document.getElementById(opts.rowcount);
+
+  let primaryMsel;
+
+  function populateFilters(){
+    const primaryValues = opts.primaryCol==='Mercado'
+      ? sortIgnoringUnderscore(uniqueSortedFiltered(opts.primaryCol))
+      : uniqueSortedFiltered(opts.primaryCol);
+
+    if(opts.searchPrimary){
+      const phWord = opts.primaryCol==='Médico' ? 'médico(s)' : opts.primaryCol==='Marca' ? 'marca(s)' : 'item(s)';
+      primaryMsel = createSearchMultiSelect(opts.primarySel, primaryValues, `Buscar ou selecionar ${phWord}...`, resetSortAndRender);
+    } else if(opts.primaryMultiple){
+      const phWord = opts.primaryCol==='Mercado' ? 'mercado(s)' : opts.primaryCol==='Cidade' ? 'cidade(s)' : 'item(s)';
+      const labelFn = opts.primaryCol==='Mercado' ? stripLeadingUnderscore : (v=>v);
+      const displayValues = primaryValues.map(labelFn);
+      const mapBack = {};
+      primaryValues.forEach((v,i)=>{ mapBack[displayValues[i]] = v; });
+      primaryMsel = createSearchMultiSelect(opts.primarySel, displayValues, `Buscar ou selecionar ${phWord}...`, resetSortAndRender);
+      primaryMsel._mapBack = mapBack;
+    } else {
+      primaryEl.innerHTML = opts.primaryCol==='Mercado'
+        ? '<option value="">Selecione um mercado...</option>'
+        : '<option value="">Selecione uma marca...</option>';
+      fillSelect(primaryEl, primaryValues, opts.primaryCol==='Mercado' ? stripLeadingUnderscore : null);
+    }
+
+    visitadoMsel = null; // replaced by inline checkboxes
+    if(opts.medicoInput){
+      const simCb = document.getElementById(opts.medicoInput + 'Sim');
+      const naoCb = document.getElementById(opts.medicoInput + 'Nao');
+      if(simCb) simCb.onchange = ()=>{ loadedCount = BATCH_SIZE; render(); };
+      if(naoCb) naoCb.onchange = ()=>{ loadedCount = BATCH_SIZE; render(); };
+    }
+  }
+  populateFilters();
+
+  function getPrimarySelectedValues(){
+    if(opts.searchPrimary){
+      return primaryMsel.getSelected();
+    }
+    if(opts.primaryMultiple){
+      const display = primaryMsel.getSelected();
+      return display.map(d => primaryMsel._mapBack[d]);
+    }
+    return primaryEl.value ? [primaryEl.value] : [];
+  }
+
+
+
+  function buildHeader(){
+    thead.innerHTML = '<th>#</th>';
+    const numCols = ['TT ANT','TT ATUAL','EVOLUÇÃO','EVOLUÇÃO MERCADO','EVOLUÇÃO EUF','EUF ANT','EUF ATUAL','MKS ANT','MKS ATUAL'];
+    DISPLAY_COLS.forEach(c=>{
+      const th = document.createElement('th');
+      th.dataset.col = c;
+      th.title = 'Duplo clique para ordenar';
+      if(numCols.includes(c)) th.style.textAlign = 'right';
+      thead.appendChild(th);
+    });
+    updateHeaderLabels();
+  }
+  function updateHeaderLabels(){
+    const labelMap = {
+      'ESP': 'Esp.',
+      'TT ANT': 'TT Ant.',
+      'TT ATUAL': 'TT Atual',
+      'EUF ANT': 'EUF Ant.',
+      'EUF ATUAL': 'EUF Atual',
+      'MKS ANT': 'MKS Ant.',
+      'MKS ATUAL': 'MKS Atual',
+      'EVOLUÇÃO': 'Evolução',
+      'EVOLUÇÃO MERCADO': 'Evol. Mercado',
+      'EVOLUÇÃO EUF': 'Evol. EUF',
+    };
+    Array.from(thead.children).forEach(th=>{
+      if(!th.dataset.col) return;
+      const arrow = th.dataset.col===sortCol ? (sortDir===1?' ▲':' ▼') : '';
+      const label = labelMap[th.dataset.col] || th.dataset.col;
+      th.textContent = label + arrow;
+      if(th.dataset.col==='ESP') th.style.width='52px';
+    });
+  }
+  buildHeader();
+
+  thead.addEventListener('dblclick', (e)=>{
+    const th = e.target.closest('th');
+    if(!th || !th.dataset.col) return;
+    const col = th.dataset.col;
+    if(sortCol===col) sortDir*=-1;
+    else { sortCol = col; sortDir = (col==='Médico'||col==='ESP') ? 1 : -1; }
+    loadedCount = BATCH_SIZE;
+    updateHeaderLabels();
+    render();
+  });
+
+  function getRows(){
+    const primaryVals = getPrimarySelectedValues();
+    if(!primaryVals.length && !opts.showAllWhenEmpty) return null;
+    const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+    const simCb = opts.medicoInput ? document.getElementById(opts.medicoInput + 'Sim') : null;
+    const naoCb = opts.medicoInput ? document.getElementById(opts.medicoInput + 'Nao') : null;
+    const visitado = [];
+    if(simCb && simCb.checked) visitado.push('SIM');
+    if(naoCb && naoCb.checked) visitado.push('NÃO');
+    let rows = primaryVals.length ? ROWS.filter(r => primaryVals.includes(val(r,opts.primaryCol))) : ROWS.slice();
+    if(setor.length) rows = rows.filter(r => setor.includes(val(r,'Setor')));
+    if(visitado.length) rows = rows.filter(r => visitado.includes(val(r,'Visitado')));
+
+    if(opts.consolidateByMedico){
+      const byKey = {};
+      rows.forEach(r=>{
+        const key = val(r,'CRM');
+        if(!byKey[key]) byKey[key] = [];
+        byKey[key].push(r);
+      });
+      rows = Object.values(byKey).map(group=>{
+        const base = group[0];
+        function sum(col){
+          let s=0, any=false;
+          group.forEach(g=>{ const v=val(g,col); if(v!==''){ s+=v; any=true; } });
+          return any ? s : '';
+        }
+        const ttAnt = sum('TT ANT'), ttAtual = sum('TT ATUAL'), eufAnt = sum('EUF ANT'), eufAtual = sum('EUF ATUAL');
+        const mksAnt = (ttAnt!=='' && ttAnt!==0 && eufAnt!=='') ? eufAnt/ttAnt : '';
+        const mksAtual = (ttAtual!=='' && ttAtual!==0 && eufAtual!=='') ? eufAtual/ttAtual : '';
+        const penet = (mksAnt!=='' && mksAtual!=='') ? (mksAtual-mksAnt)*100 : '';
+        const fake = base.slice();
+        fake[IDX['TT ANT']]=ttAnt; fake[IDX['TT ATUAL']]=ttAtual;
+        fake[IDX['EUF ANT']]=eufAnt; fake[IDX['EUF ATUAL']]=eufAtual;
+        fake[IDX['MKS ANT']]=mksAnt; fake[IDX['MKS ATUAL']]=mksAtual; 
+        // Visitado = SIM só se TODAS as linhas do CRM foram visitadas
+        const todosVisitados = group.every(g=>val(g,'Visitado')==='SIM');
+        fake[IDX['Visitado']] = todosVisitados ? 'SIM' : 'NÃO';
+        return fake;
+      });
+    }
+
+    rows.sort((a,b) => {
+      const av = (sortCol==='EVOLUÇÃO'||sortCol==='EVOLUÇÃO MERCADO') ? evolucao(a) : sortCol==='EVOLUÇÃO EUF' ? evolucaoEuf(a) : val(a,sortCol);
+      const bv = (sortCol==='EVOLUÇÃO'||sortCol==='EVOLUÇÃO MERCADO') ? evolucao(b) : sortCol==='EVOLUÇÃO EUF' ? evolucaoEuf(b) : val(b,sortCol);
+      if(av==='' && bv==='') return 0;
+      if(av==='') return 1;
+      if(bv==='') return -1;
+      if(typeof av === 'string') return sortDir*av.localeCompare(bv);
+      return sortDir*(av-bv);
+    });
+    return rows;
+  }
+
+  const kpiRow = opts.kpiRow ? document.getElementById(opts.kpiRow) : null;
+
+  function renderKPIs(rows){
+    if(!kpiRow) return;
+    if(!rows || !rows.length){ kpiRow.innerHTML = ''; return; }
+    const medicos = new Set();
+    const medicosVisitados = new Set();
+    let sumTTAtual=0, sumEufAtual=0, sumTTAnt=0, sumEufAnt=0;
+    rows.forEach(r=>{
+      const crm = val(r,'CRM');
+      medicos.add(crm);
+      if(val(r,'Visitado')==='SIM') medicosVisitados.add(crm);
+      const tt=val(r,'TT ATUAL'), euf=val(r,'EUF ATUAL'), tta=val(r,'TT ANT'), eufa=val(r,'EUF ANT');
+      if(tt!=='') sumTTAtual+=tt;
+      if(euf!=='') sumEufAtual+=euf;
+      if(tta!=='') sumTTAnt+=tta;
+      if(eufa!=='') sumEufAnt+=eufa;
+    });
+    const shareAtual = sumTTAtual ? (sumEufAtual/sumTTAtual*100) : 0;
+    const shareAnt = sumTTAnt ? (sumEufAnt/sumTTAnt*100) : 0;
+    const delta = shareAtual - shareAnt;
+    const pctVisitado = medicos.size ? (medicosVisitados.size/medicos.size*100) : 0;
+
+    const cards = [
+      {label:'Médicos no filtro', value: medicos.size.toLocaleString('pt-BR'), accent:'#1B7FE8', icon:'◈'},
+      {label:'% Visitados', value: pctVisitado.toFixed(0)+'%', accent:'#00C9A7', icon:'✓'},
+      {label:'EUF atual (total)', value: Math.round(sumEufAtual).toLocaleString('pt-BR'), accent:'#6366F1', icon:'◫'},
+      {label:'Share EUF atual', value: shareAtual.toFixed(1)+'%', accent:'#FFD93D', icon:'◆',
+        sub:(delta>=0?'+':'')+delta.toFixed(1)+' p.p. vs ano anterior', subColor: delta>=0?'#10B981':'#EF4444'}
+    ];
+    kpiRow.innerHTML = cards.map(c=>`
+      <div class="kpi-card" style="border-top:3px solid ${c.accent}">
+        <div class="label">${c.label}</div>
+        <div class="value">${c.value}</div>
+        ${c.sub ? `<div class="sub" style="color:${c.subColor||c.accent}">${c.sub}</div>` : ''}
+        <div class="icon">${c.icon}</div>
+      </div>`).join('');
+  }
+
+  let rowsByCrmCache = null;
+  function rebuildRowsByCrmCache(){
+    if(!opts.clickableMedico) return;
+    rowsByCrmCache = {};
+    ROWS.forEach(rr=>{
+      const crm = val(rr,'CRM');
+      if(!rowsByCrmCache[crm]) rowsByCrmCache[crm] = [];
+      rowsByCrmCache[crm].push(rr);
+    });
+  }
+  rebuildRowsByCrmCache();
+
+  const BATCH_SIZE = 80;
+  let loadedCount = BATCH_SIZE;
+
+  function rowHtml(r, i){
+    const eufAtual = val(r,'EUF ATUAL');
+    const naoVisitado = val(r,'Visitado')!=='SIM';
+    const naoVisitadoDestaque = naoVisitado && eufAtual!=='' && eufAtual>=5;
+    const starPrefix = naoVisitadoDestaque ? '<span class="star-alert" title="Não visitado com EUF ATUAL ≥ 5">⭐</span> ' : '';
+    const endereco = val(r,'Local');
+    const cidade = val(r,'Cidade');
+    const mapQuery = encodeURIComponent(`${val(r,'Médico')} ${endereco} ${cidade}`);
+    const mapPin = naoVisitado
+      ? `<a class="map-pin" href="https://www.google.com/search?q=${mapQuery}" target="_blank" rel="noopener" title="Pesquisar no Google — ${val(r,'Médico')}, ${endereco}, ${cidade}" onclick="event.stopPropagation()"><img src="https://www.google.com/favicon.ico" width="13" height="13" style="vertical-align:middle;opacity:.7;margin-bottom:1px;"></a> `
+      : '';
+    let html = `<tr data-idx="${i}"${naoVisitadoDestaque ? ' class="row-alert"' : ''}>`;
+    html += `<td class="rank">${i+1}</td>`;
+    DISPLAY_COLS.forEach(c=>{
+      let v = val(r,c);
+      if(c==='Médico' && opts.clickableMedico){
+        const tooltipTxt = `CRM: ${val(r,'CRM')} | ${val(r,'Local')} | ${val(r,'Cidade')}`;
+        const crmTag = naoVisitado ? `<span style="font-size:9px;color:var(--sub);display:block;line-height:1.2;">CRM: ${val(r,'CRM')}</span>` : '';
+        const insightBtn = opts.viewId==='viewMercado2' ? `<button class="insight-btn" data-crm="${val(r,'CRM')}" data-nome="${v.replace(/"/g,'&quot;')}">✦ Insight</button>` : '';
+        html += `<td class="medico-link" data-idx="${i}" title="${tooltipTxt}">${starPrefix}${v} ${mapPin}${insightBtn}${crmTag}</td>`;
+      } else if(c==='Médico'){
+        const tooltipTxt2 = `CRM: ${val(r,'CRM')} | ${val(r,'Local')} | ${val(r,'Cidade')}`;
+        const crmTag2 = naoVisitado ? `<span style="font-size:9px;color:var(--sub);display:block;line-height:1.2;">CRM: ${val(r,'CRM')}</span>` : '';
+        html += `<td title="${tooltipTxt2}">${starPrefix}${v} ${mapPin}${crmTag2}</td>`;
+      } else if(c==='ESP'){
+        html += `<td style="font-size:11px;color:var(--sub);white-space:nowrap;" title="${v}">${v ? v.slice(0,3) : ''}</td>`;
+      } else if(c==='EVOLUÇÃO' || c==='EVOLUÇÃO MERCADO'){
+        const ev = evolucao(r);
+        const cls = ev===''?'':(ev>=0?'pos':'neg');
+        html += `<td class="num ${cls}">${pct(ev)}</td>`;
+      } else if(c==='EVOLUÇÃO EUF'){
+        const ev = evolucaoEuf(r);
+        const cls = ev===''?'':(ev>=0?'pos':'neg');
+        html += `<td class="num ${cls}">${pct(ev)}</td>`;
+      } else if(c==='MKS ANT' || c==='MKS ATUAL'){
+        html += `<td class="num">${pct(v)}</td>`;
+      } else if(c==='TT ANT' || c==='TT ATUAL' || c==='EUF ANT' || c==='EUF ATUAL'){
+        html += `<td class="num">${v}</td>`;
+      } else {
+        html += `<td>${v}</td>`;
+      }
+    });
+    html += `</tr>`;
+    return html;
+  }
+
+  function render(){
+    const rows = getRows();
+    if(rows===null){
+      tbody.innerHTML = '';
+      placeholder.style.display = 'block';
+      table.style.display='none';
+      rowcount.textContent = '';
+      renderKPIs(null);
+      renderLoadStatus(0,0);
+      return;
+    }
+    placeholder.style.display = 'none';
+    table.style.display='table';
+    renderKPIs(rows);
+    currentRows = rows;
+    currentRowsByCrm = rowsByCrmCache;
+
+    if(opts.groupByMercado){
+      // Group rows by Mercado — show mercado as top-level rows
+      const mercadoMap = {};
+      const mercadoOrder = [];
+      rows.forEach(r=>{
+        const m = val(r,'Mercado');
+        if(!mercadoMap[m]){ mercadoMap[m]=[]; mercadoOrder.push(m); }
+        mercadoMap[m].push(r);
+      });
+      mercadoOrder.sort((a,b)=>a.replace(/_/g,'').localeCompare(b.replace(/_/g,'')));
+      rowcount.textContent = `(${mercadoOrder.length.toLocaleString('pt-BR')} mercados)`;
+      let html = '';
+      mercadoOrder.forEach(m=>{
+        const mRows = mercadoMap[m];
+        const sumF = c=> mRows.reduce((s,r)=>{ const v=val(r,c); return s+(v===''?0:v); },0);
+        const ttAnt=sumF('TT ANT'), ttAtual=sumF('TT ATUAL'), eufAnt=sumF('EUF ANT'), eufAtual=sumF('EUF ATUAL');
+        const evM = ttAnt ? (ttAtual-ttAnt)/ttAnt : '';
+        const evE = eufAnt ? (eufAtual-eufAnt)/eufAnt : '';
+        const evMCls = evM===''?'':(evM>=0?'pos':'neg');
+        const evECls = evE===''?'':(evE>=0?'pos':'neg');
+        html += `<tr class="mercado-primary-row" data-mercado="${m.replace(/"/g,'&quot;')}">
+          <td class="rank">▸</td>
+          <td class="mercado-toggle" style="cursor:pointer;font-weight:700;color:var(--navy2);">${stripLeadingUnderscore(m)} <span class="mercado-chart-btn gm-chart" data-mercado="${m.replace(/"/g,'&quot;')}" title="Ver gráfico TT ANT x TT ATUAL" onclick="event.stopPropagation()">📈</span></td>
+          <td class="num">${ttAnt||''}</td><td class="num">${ttAtual||''}</td>
+          <td class="num">${eufAnt||''}</td><td class="num">${eufAtual||''}</td>
+          <td class="num ${evMCls}">${pct(evM)}</td>
+          <td class="num ${evECls}">${pct(evE)}</td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+      renderLoadStatus(mercadoOrder.length, mercadoOrder.length);
+      return;
+    }
+
+    if(loadedCount > rows.length) loadedCount = Math.min(BATCH_SIZE, rows.length) || rows.length;
+    const visibleCount = Math.min(loadedCount, rows.length);
+    const pageRows = rows.slice(0, visibleCount);
+    let mainHtml = '';
+    pageRows.forEach((r,i)=>{ mainHtml += rowHtml(r,i); });
+    rowcount.textContent = `(${rows.length.toLocaleString('pt-BR')} médicos)`;
+    tbody.innerHTML = mainHtml;
+    renderLoadStatus(visibleCount, rows.length);
+  }
+
+  function loadMore(){
+    if(!currentRows || loadedCount >= currentRows.length) return;
+    const start = loadedCount;
+    const end = Math.min(loadedCount + BATCH_SIZE, currentRows.length);
+    let extraHtml = '';
+    for(let i=start; i<end; i++){ extraHtml += rowHtml(currentRows[i], i); }
+    tbody.insertAdjacentHTML('beforeend', extraHtml);
+    loadedCount = end;
+    renderLoadStatus(loadedCount, currentRows.length);
+  }
+
+  function renderLoadStatus(visible, total){
+    const el = document.getElementById(opts.paginationId);
+    if(!el) return;
+    if(total<=0){ el.innerHTML=''; return; }
+    if(visible>=total){
+      el.innerHTML = `<span class="muted">Mostrando todos os ${total.toLocaleString('pt-BR')} médicos</span>`;
+    } else {
+      el.innerHTML = `<span class="muted">Mostrando ${visible.toLocaleString('pt-BR')} de ${total.toLocaleString('pt-BR')} médicos</span>
+        <button type="button" class="btn secondary" data-pg="more">Carregar mais ▾</button>`;
+      el.querySelector('[data-pg="more"]').addEventListener('click', loadMore);
+    }
+  }
+
+  // Carrega mais automaticamente ao rolar perto do fim da tabela
+  table.parentElement.addEventListener('scroll', ()=>{
+    const wrap = table.parentElement;
+    if(wrap.scrollTop + wrap.clientHeight > wrap.scrollHeight - 200){
+      loadMore();
+    }
+  });
+
+  function buildMercadoRowsHtml(r){
+    const crm = val(r,'CRM');
+    const rowsForCrm = (currentRowsByCrm[crm] || []).filter(rr => {
+      if(opts.primaryCol==='Mercado'){
+        const selVals = getPrimarySelectedValues();
+        return selVals.length ? selVals.includes(val(rr,'Mercado')) : true;
+      }
+      return true;
+    });
+
+    const byMercado = {};
+    rowsForCrm.forEach(rr=>{
+      const m = val(rr,'Mercado');
+      if(!byMercado[m]) byMercado[m] = [];
+      byMercado[m].push(rr);
+    });
+
+    const mercadoNames = Object.keys(byMercado);
+    mercadoNames.sort();
+
+    let html = '';
+    mercadoNames.forEach(m=>{
+      const group = byMercado[m];
+      function sum(col){
+        let s=0, any=false;
+        group.forEach(g=>{ const v=val(g,col); if(v!==''){ s+=v; any=true; } });
+        return any ? s : '';
+      }
+      const ttAnt=sum('TT ANT'), ttAtual=sum('TT ATUAL'), eufAnt=sum('EUF ANT'), eufAtual=sum('EUF ATUAL');
+      const evAgg = (ttAnt!=='' && ttAtual!=='' && ttAnt!==0) ? (ttAtual-ttAnt)/ttAnt : '';
+      const evCls = evAgg===''?'':(evAgg>=0?'pos':'neg');
+      const evEufAgg = (eufAnt!=='' && eufAtual!=='' && eufAnt!==0) ? (eufAtual-eufAnt)/eufAnt : '';
+      const evEufCls = evEufAgg===''?'':(evEufAgg>=0?'pos':'neg');
+
+      html += `<tr class="detail-row mercado-row" data-crm="${crm}" data-mercado="${m.replace(/"/g,'&quot;')}">`;
+      html += `<td></td>`;
+      DISPLAY_COLS.forEach(c=>{
+        if(c==='Médico'){
+          html += `<td class="detail-leaf-name"><span class="mercado-toggle" style="cursor:pointer;">▸ ${stripLeadingUnderscore(m)}</span> <span class="mercado-chart-btn" data-crm="${crm}" data-mercado="${m.replace(/"/g,'&quot;')}" title="Ver gráfico TT ANT x TT ATUAL">📈</span></td>`;
+        } else if(c==='ESP'){
+          html += `<td></td>`;
+        } else if(c==='TT ANT'){
+          html += `<td class="num">${ttAnt}</td>`;
+        } else if(c==='TT ATUAL'){
+          html += `<td class="num">${ttAtual}</td>`;
+        } else if(c==='EVOLUÇÃO' || c==='EVOLUÇÃO MERCADO'){
+          html += `<td class="num ${evCls}">${pct(evAgg)}</td>`;
+        } else if(c==='EVOLUÇÃO EUF'){
+          html += `<td class="num ${evEufCls}">${pct(evEufAgg)}</td>`;
+        } else if(c==='EUF ANT'){
+          html += `<td class="num">${eufAnt}</td>`;
+        } else if(c==='EUF ATUAL'){
+          html += `<td class="num">${eufAtual}</td>`;
+        } else {
+          html += `<td></td>`;
+        }
+      });
+      html += `</tr>`;
+    });
+    return html;
+  }
+
+  function buildMarcaRowsHtml(crm, mercadoVal){
+    const brandRows = (currentRowsByCrm[crm] || []).filter(rr => val(rr,'Mercado')===mercadoVal);
+    brandRows.sort((a,b)=> (evolucao(b)||-9999) - (evolucao(a)||-9999));
+
+    let html = '';
+    brandRows.forEach(br=>{
+      const marcaName = val(br,'Marca');
+      const isOwn = /EUF/i.test(marcaName);
+      const mksAtual = val(br,'MKS ATUAL');
+      const mksTxt = mksAtual==='' ? '' : ` <span class="mks-tag">MKS ${pct(mksAtual)}</span>`;
+      html += `<tr class="detail-row marca-row${isOwn ? ' detail-row-own' : ''}"><td></td>`;
+      DISPLAY_COLS.forEach(c=>{
+        if(c==='Médico'){
+          html += `<td class="detail-leaf-name" style="padding-left:42px !important;">${marcaName}${isOwn ? ' <span class="own-tag">EUF</span>' : ''}${mksTxt}</td>`;
+        } else if(c==='ESP'){
+          html += `<td></td>`;
+        } else if(c==='TT ANT'){
+          html += `<td class="num">${val(br,'TT ANT')}</td>`;
+        } else if(c==='TT ATUAL'){
+          html += `<td class="num">${val(br,'TT ATUAL')}</td>`;
+        } else if(c==='EVOLUÇÃO' || c==='EVOLUÇÃO MERCADO'){
+          const ev = evolucao(br);
+          const cls = ev===''?'':(ev>=0?'pos':'neg');
+          html += `<td class="num ${cls}">${pct(ev)}</td>`;
+        } else if(c==='EVOLUÇÃO EUF'){
+          const ev = evolucaoEuf(br);
+          const cls = ev===''?'':(ev>=0?'pos':'neg');
+          html += `<td class="num ${cls}">${pct(ev)}</td>`;
+        } else if(c==='EUF ANT'){
+          html += `<td class="num">${val(br,'EUF ANT')}</td>`;
+        } else if(c==='EUF ATUAL'){
+          html += `<td class="num">${val(br,'EUF ATUAL')}</td>`;
+        } else if(c==='MKS ANT' || c==='MKS ATUAL'){
+          html += `<td class="num">${pct(val(br,c))}</td>`;
+        } else {
+          html += `<td></td>`;
+        }
+      });
+      html += `</tr>`;
+    });
+    return html;
+  }
+
+  let currentRows = [];
+  let currentRowsByCrm = null;
+
+  if(opts.groupByMercado){
+    tbody.addEventListener('click', (e)=>{
+      // Chart icon on mercado row
+      const gmChart = e.target.closest('.gm-chart');
+      if(gmChart){
+        const mercadoVal = gmChart.dataset.mercado;
+        showMercadoChartByMercado(mercadoVal);
+        return;
+      }
+
+      const row = e.target.closest('tr');
+      if(!row) return;
+
+      // Level 1: Mercado → expand Médicos
+      if(row.classList.contains('mercado-primary-row')){
+        const next = row.nextElementSibling;
+        if(next && next.classList.contains('gm-medico-row')){
+          // collapse — remove all detail rows until next mercado-primary-row
+          let sib = row.nextElementSibling;
+          while(sib && !sib.classList.contains('mercado-primary-row')){
+            const rem = sib; sib = sib.nextElementSibling; rem.remove();
+          }
+          row.querySelector('.rank').textContent = '▸';
+        } else {
+          const mercadoVal = row.dataset.mercado;
+          const mRows = ROWS.filter(r=>val(r,'Mercado')===mercadoVal);
+          const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+          const filteredRows = setor.length ? mRows.filter(r=>setor.includes(val(r,'Setor'))) : mRows;
+          // group by CRM
+          const byMedico = {}; const medicoOrder = [];
+          filteredRows.forEach(r=>{ const crm=val(r,'CRM'); if(!byMedico[crm]){byMedico[crm]=[];medicoOrder.push(crm);} byMedico[crm].push(r); });
+          let html = '';
+          medicoOrder.forEach(crm=>{
+            const mRows2 = byMedico[crm];
+            const r0 = mRows2[0];
+            const sumF = c=>mRows2.reduce((s,r)=>{ const v=val(r,c); return s+(v===''?0:v); },0);
+            const ttAtual=sumF('TT ATUAL'), eufAtual=sumF('EUF ATUAL');
+            const ttAnt=sumF('TT ANT'), eufAnt=sumF('EUF ANT');
+            const evM = ttAnt?(ttAtual-ttAnt)/ttAnt:''; const evE = eufAnt?(eufAtual-eufAnt)/eufAnt:'';
+            const naoVisit = !mRows2.every(r=>val(r,'Visitado')==='SIM');
+            const mapQ = encodeURIComponent(`${val(r0,'Médico')} ${val(r0,'Local')} ${val(r0,'Cidade')}`);
+            const pin = naoVisit ? `<a class="map-pin" href="https://www.google.com/search?q=${mapQ}" target="_blank" rel="noopener" title="Pesquisar no Google" onclick="event.stopPropagation()"><img src="https://www.google.com/favicon.ico" width="13" height="13" style="vertical-align:middle;opacity:.7;margin-bottom:1px;"></a> ` : '';
+            const star = naoVisit && eufAtual>=5 ? '⭐ ' : '';
+            html += `<tr class="detail-row gm-medico-row" data-crm="${crm}" data-mercado="${mercadoVal.replace(/"/g,'&quot;')}">
+              <td class="rank" style="cursor:pointer;color:var(--blue);font-size:16px;">└</td>
+              <td class="medico-toggle" style="cursor:pointer;padding-left:12px !important;">
+                <span class="gm-mercado-chip">${stripLeadingUnderscore(mercadoVal)}</span> ${star}${val(r0,'Médico')} ${pin}
+              </td>
+              <td style="color:var(--sub);font-size:11.5px;">${val(r0,'ESP')}</td>
+              <td class="num">${ttAnt||''}</td><td class="num">${ttAtual||''}</td>
+              <td class="num">${eufAnt||''}</td><td class="num">${eufAtual||''}</td>
+              <td class="num ${evM===''?'':(evM>=0?'pos':'neg')}">${pct(evM)}</td>
+              <td class="num ${evE===''?'':(evE>=0?'pos':'neg')}">${pct(evE)}</td>
+            </tr>`;
+          });
+          const groupEnd = '<tr class="gm-group-end" style="pointer-events:none;"><td colspan="20" style="height:3px;background:linear-gradient(90deg,#1B7FE8,transparent);padding:0;border:none;"></td></tr>';
+          row.insertAdjacentHTML('afterend', html + groupEnd);
+          row.querySelector('.rank').textContent = '▾';
+        }
+        return;
+      }
+
+      // Level 2: Médico → expand Marcas
+      if(row.classList.contains('gm-medico-row')){
+        const next = row.nextElementSibling;
+        if(next && next.classList.contains('gm-marca-row')){
+          let sib = row.nextElementSibling;
+          while(sib && sib.classList.contains('gm-marca-row')){
+            const rem = sib; sib = sib.nextElementSibling; rem.remove();
+          }
+          row.querySelector('.rank').textContent = '▸';
+        } else {
+          const crm = row.dataset.crm;
+          const mercadoVal = row.dataset.mercado;
+          const marcaRows = ROWS.filter(r=>val(r,'CRM')===crm && val(r,'Mercado')===mercadoVal);
+          let html = '';
+          marcaRows.forEach(mr=>{
+            const marcaName = val(mr,'Marca');
+            const isOwn = /EUF/i.test(marcaName);
+            const ttAnt=val(mr,'TT ANT'), ttAtual=val(mr,'TT ATUAL'), eufAnt=val(mr,'EUF ANT'), eufAtual=val(mr,'EUF ATUAL');
+            const evM = (ttAnt!==''&&ttAnt!==0)?(ttAtual-ttAnt)/ttAnt:'';
+            const evE = (eufAnt!==''&&eufAnt!==0)?(eufAtual-eufAnt)/eufAnt:'';
+            const mks = val(mr,'MKS ATUAL');
+            const mksTxt = mks!==''? `<span class="mks-tag">MKS ${pct(mks)}</span>` : '';
+            html += `<tr class="detail-row gm-marca-row${isOwn?' detail-row-own':''}">
+              <td></td>
+              <td class="detail-leaf-name" style="padding-left:36px !important;">${marcaName}${isOwn?'<span class="own-tag">EUF</span>':''}${mksTxt}</td>
+              <td></td>
+              <td class="num">${ttAnt}</td><td class="num">${ttAtual}</td>
+              <td class="num">${eufAnt}</td><td class="num">${eufAtual}</td>
+              <td class="num ${evM===''?'':(evM>=0?'pos':'neg')}">${pct(evM)}</td>
+              <td class="num ${evE===''?'':(evE>=0?'pos':'neg')}">${pct(evE)}</td>
+            </tr>`;
+          });
+          row.insertAdjacentHTML('afterend', html);
+          row.querySelector('.rank').textContent = '▾';
+        }
+      }
+    });
+  }
+
+  if(opts.clickableMedico){
+    tbody.addEventListener('click', (e)=>{
+      const chartBtn = e.target.closest('.mercado-chart-btn');
+      if(chartBtn){
+        const crm = chartBtn.dataset.crm;
+        const mercadoVal = chartBtn.dataset.mercado;
+        showMercadoChart(crm, mercadoVal);
+        return;
+      }
+
+      const toggle = e.target.closest('.mercado-toggle');
+      if(toggle){
+        const mercadoTr = toggle.closest('tr');
+        const next = mercadoTr.nextElementSibling;
+        if(next && next.classList.contains('marca-row')){
+          let sib = mercadoTr.nextElementSibling;
+          while(sib && sib.classList.contains('marca-row')){
+            const toRemove = sib;
+            sib = sib.nextElementSibling;
+            toRemove.remove();
+          }
+          toggle.textContent = toggle.textContent.replace('▾','▸');
+        } else {
+          const crm = mercadoTr.dataset.crm;
+          const mercadoVal = mercadoTr.dataset.mercado;
+          mercadoTr.insertAdjacentHTML('afterend', buildMarcaRowsHtml(crm, mercadoVal));
+          toggle.textContent = toggle.textContent.replace('▸','▾');
+        }
+        return;
+      }
+
+      const link = e.target.closest('.medico-link');
+      if(!link) return;
+      const idx = Number(link.dataset.idx);
+      const mainTr = link.closest('tr');
+      const next = mainTr.nextElementSibling;
+      if(next && next.classList.contains('detail-row')){
+        let sib = mainTr.nextElementSibling;
+        while(sib && sib.classList.contains('detail-row')){
+          const toRemove = sib;
+          sib = sib.nextElementSibling;
+          toRemove.remove();
+        }
+      } else {
+        const r = currentRows[idx];
+        mainTr.insertAdjacentHTML('afterend', buildMercadoRowsHtml(r));
+      }
+    });
+  }
+
+  function resetSortAndRender(){
+    sortCol = 'EUF ATUAL';
+    sortDir = -1;
+    loadedCount = BATCH_SIZE;
+    updateHeaderLabels();
+    render();
+  }
+
+  if(!opts.primaryMultiple && !opts.searchPrimary){
+    primaryEl.addEventListener('change', resetSortAndRender);
+  }
+
+  document.getElementById(opts.exportBtn).addEventListener('click', ()=>{
+    const primaryVals = getPrimarySelectedValues();
+    const rows = getRows();
+    if(rows===null){ alert(`Selecione um(a) ${opts.primaryCol.toLowerCase()} antes de exportar.`); return; }
+    ensureXLSXLoaded().then(()=>{
+      const data = rows.map((r,i)=>{
+        const o = {'#': i+1};
+        DISPLAY_COLS.forEach(c=>{ o[c] = (c==='EVOLUÇÃO'||c==='EVOLUÇÃO MERCADO') ? evolucao(r) : c==='EVOLUÇÃO EUF' ? evolucaoEuf(r) : val(r,c); });
+        return o;
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, opts.exportSheetName);
+      XLSX.writeFile(wb, `medicos_${primaryVals.join('_').replace(/[^a-z0-9]/gi,'_')}.xlsx`);
+    }).catch(err=>{
+      alert('Não foi possível exportar: ' + err.message);
+    });
+  });
+
+  let needsRender = true;
+  const viewEl = opts.viewId ? document.getElementById(opts.viewId) : null;
+  function isVisible(){ return !viewEl || viewEl.style.display !== 'none'; }
+  function maybeRender(){
+    if(isVisible()){ render(); needsRender = false; }
+    else { needsRender = true; }
+  }
+  // Não renderiza nada na construção — só após a tela inicial liberar o painel (unlockApp chama ensureRender).
+
+  return {
+    refresh: function(){
+      populateFilters();
+      sortCol = 'EUF ATUAL'; sortDir = -1;
+      loadedCount = BATCH_SIZE;
+      buildHeader();
+      rebuildRowsByCrmCache();
+      maybeRender();
+    },
+    ensureRender: function(){
+      if(needsRender){ render(); needsRender = false; }
+    },
+    needsRenderNow: function(){ return needsRender; },
+    getCurrentRows: function(){ return currentRows; },
+    selectPrimary: function(name){
+      if(primaryMsel && primaryMsel.clear) primaryMsel.clear();
+      if(primaryMsel && primaryMsel.selectByName){
+        primaryMsel.selectByName(name);
+      }
+      loadedCount = BATCH_SIZE;
+      render();
+    },
+    clearFilters: function(){
+      // clear primary filter
+      if(primaryMsel && primaryMsel.clear) primaryMsel.clear();
+      else if(primaryEl) primaryEl.value = '';
+      // clear visitado checkboxes
+      if(opts.medicoInput){
+        const simCb = document.getElementById(opts.medicoInput+'Sim');
+        const naoCb = document.getElementById(opts.medicoInput+'Nao');
+        if(simCb) simCb.checked = false;
+        if(naoCb) naoCb.checked = false;
+      }
+      loadedCount = BATCH_SIZE;
+      render();
+    },
+    rerender: function(){
+      populateFilters();
+      loadedCount = BATCH_SIZE;
+      maybeRender();
+    }
+  };
+}
+
+const tabMarcaCtl = buildTab({
+  primaryCol: 'Marca',
+  primarySel: 'fMarca', setorSel: 'fSetor', setorAllId: 'fSetorAll', medicoInput: 'fMedico',
+  thead: 'thead', tbody: 'tbody', table: 'tbl', placeholder: 'placeholderMsg', rowcount: 'rowcount',
+  exportBtn: 'btnExport', exportSheetName: 'Por Marca',
+  searchPrimary: true,
+  consolidateByMedico: true,
+  showAllWhenEmpty: true,
+  kpiRow: 'kpiRowMarca', paginationId: 'pagination1',
+  viewId: 'viewMarca'
+});
+
+const tabMercadoCtl = buildTab({
+  primaryCol: 'Mercado',
+  primarySel: 'fMercado', setorSel: 'fSetor2', setorAllId: 'fSetor2All', medicoInput: 'fMedico2',
+  thead: 'thead2', tbody: 'tbody2', table: 'tbl2', placeholder: 'placeholderMsg2', rowcount: 'rowcount2',
+  exportBtn: 'btnExport2', exportSheetName: 'Por Mercado',
+  clickableMedico: true,
+  displayCols: DISPLAY_COLS_MERCADO,
+  consolidateByMedico: true,
+  primaryMultiple: true,
+  showAllWhenEmpty: true,
+  kpiRow: 'kpiRowMercado', paginationId: 'pagination2',
+  viewId: 'viewMercado'
+});
+
+// ---- Aba Mercado: Mercado → Médico (expandível) ----
+const tabMkt6Ctl = (function(){
+  let mercadoFilter = null;
+  let rendered = false;
+  const COLS_MKT = ['TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','MKS ANT','MKS ATUAL','EVOLUÇÃO'];
+
+  function getRows(){
+    const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+    const selM = mercadoFilter ? mercadoFilter.getSelected().map(l=>mercadoFilter._mapBack&&mercadoFilter._mapBack[l]||l) : [];
+    const simCb = document.getElementById('fMkt6Sim');
+    const naoCb = document.getElementById('fMkt6Nao');
+    const vis = [];
+    if(simCb&&simCb.checked) vis.push('SIM');
+    if(naoCb&&naoCb.checked) vis.push('NÃO');
+    let rows = ROWS.slice();
+    if(setor.length) rows = rows.filter(r=>setor.includes(val(r,'Setor')));
+    if(selM.length) rows = rows.filter(r=>selM.includes(val(r,'Mercado')));
+    if(vis.length) rows = rows.filter(r=>vis.includes(val(r,'Visitado')));
+    return rows;
+  }
+
+  function aggByMercado(rows){
+    const map={}, order=[];
+    rows.forEach(r=>{
+      const m=val(r,'Mercado');
+      if(!map[m]){map[m]={ttAnt:0,ttAtual:0,eufAnt:0,eufAtual:0,mksAnt:0,mksAtual:0,crms:new Set(),vis:new Set(),cnt:0};order.push(m);}
+      const b=map[m];
+      ['TT ANT','TT ATUAL','EUF ANT','EUF ATUAL','MKS ANT','MKS ATUAL'].forEach(c=>{
+        const v=val(r,c); if(v!=='') b[c.toLowerCase().replace(/ /g,'_').replace('tt_','tt').replace('euf_','euf').replace('mks_','mks')]=(b[c.toLowerCase().replace(/ /g,'_').replace('tt_','tt').replace('euf_','euf').replace('mks_','mks')]||0)+v;
+      });
+      b.ttAnt+=(val(r,'TT ANT')||0); b.ttAtual+=(val(r,'TT ATUAL')||0);
+      b.eufAnt+=(val(r,'EUF ANT')||0); b.eufAtual+=(val(r,'EUF ATUAL')||0);
+      b.mksAnt+=(val(r,'MKS ANT')||0); b.mksAtual+=(val(r,'MKS ATUAL')||0);
+      b.crms.add(val(r,'CRM')); if(val(r,'Visitado')==='SIM') b.vis.add(val(r,'CRM'));
+    });
+    return order.map(m=>({mercado:m,...map[m]})).sort((a,b)=>b.eufAtual-a.eufAtual);
+  }
+
+  function renderKpis(rows){
+    const el=document.getElementById('kpiRowMkt6'); if(!el)return;
+    const medicos=new Set(),medicosVisitados=new Set();
+    let sumTTAtual=0,sumEufAtual=0,sumTTAnt=0,sumEufAnt=0;
+    rows.forEach(r=>{
+      const crm=val(r,'CRM'); medicos.add(crm);
+      if(val(r,'Visitado')==='SIM') medicosVisitados.add(crm);
+      const tt=val(r,'TT ATUAL'),euf=val(r,'EUF ATUAL'),tta=val(r,'TT ANT'),eufa=val(r,'EUF ANT');
+      if(tt!=='')sumTTAtual+=tt; if(euf!=='')sumEufAtual+=euf;
+      if(tta!=='')sumTTAnt+=tta; if(eufa!=='')sumEufAnt+=eufa;
+    });
+    const shareAtual=sumTTAtual?(sumEufAtual/sumTTAtual*100):0;
+    const shareAnt=sumTTAnt?(sumEufAnt/sumTTAnt*100):0;
+    const delta=shareAtual-shareAnt;
+    const pctVisitado=medicos.size?(medicosVisitados.size/medicos.size*100):0;
+    const cards=[
+      {label:'Médicos no filtro',value:medicos.size.toLocaleString('pt-BR'),accent:'#1B7FE8',icon:'◈'},
+      {label:'% Visitados',value:pctVisitado.toFixed(0)+'%',accent:'#00C9A7',icon:'✓'},
+      {label:'EUF atual (total)',value:Math.round(sumEufAtual).toLocaleString('pt-BR'),accent:'#6366F1',icon:'◫'},
+      {label:'Share EUF atual',value:shareAtual.toFixed(1)+'%',accent:'#FFD93D',icon:'◆',
+        sub:(delta>=0?'+':'')+delta.toFixed(1)+' p.p. vs ano anterior',subColor:delta>=0?'#10B981':'#EF4444'}
+    ];
+    el.innerHTML=cards.map(c=>`
+      <div class="kpi-card" style="border-top:3px solid ${c.accent}">
+        <div class="label">${c.label}</div>
+        <div class="value">${c.value}</div>
+        ${c.sub?`<div class="sub" style="color:${c.subColor||c.accent}">${c.sub}</div>`:''}
+        <div class="icon">${c.icon}</div>
+      </div>`).join('');
+  }
+
+  let sortMkt='EUF ATUAL', sortDirMkt=-1;
+
+  function buildHeader(){
+    const thead=document.getElementById('theadMkt6');
+    if(!thead)return;
+    const cols=[{k:'MERCADO',l:'MERCADO'},{k:'TT ANT',l:'TT ANT'},{k:'TT ATUAL',l:'TT ATUAL'},{k:'EUF ANT',l:'EUF ANT'},{k:'EUF ATUAL',l:'EUF ATUAL'},{k:'EVOL. MERCADO',l:'Evol. Mercado'},{k:'EVOL. EUF',l:'Evol. EUF'}];
+    thead.innerHTML=`<th style="width:36px">#</th>`+cols.map(c=>{
+      const arrow=c.k===sortMkt?(sortDirMkt===1?' ▲':' ▼'):'';
+      const align=c.k==='MERCADO'?'':'text-align:center;';
+      return `<th data-col="${c.k}" style="cursor:pointer;${align}">${c.l}${arrow}</th>`;
+    }).join('');
+    thead.addEventListener('click',e=>{
+      const th=e.target.closest('th[data-col]');
+      if(!th)return;
+      const col=th.dataset.col;
+      if(sortMkt===col) sortDirMkt*=-1;
+      else{ sortMkt=col; sortDirMkt=col==='MERCADO'?1:-1; }
+      render();
+    });
+  }
+
+  function render(){
+    if(!ROWS.length)return;
+    if(!mercadoFilter) setup();
+    buildHeader();
+    const rows=getRows();
+    renderKpis(rows);
+    const agg=aggByMercado(rows);
+    // Sort
+    agg.sort((a,b)=>{
+      let av,bv;
+      if(sortMkt==='MERCADO'){ av=stripLeadingUnderscore(a.mercado); bv=stripLeadingUnderscore(b.mercado); return sortDirMkt*av.localeCompare(bv); }
+      if(sortMkt==='TT ANT'){ av=a.ttAnt; bv=b.ttAnt; }
+      else if(sortMkt==='TT ATUAL'){ av=a.ttAtual; bv=b.ttAtual; }
+      else if(sortMkt==='EUF ANT'){ av=a.eufAnt; bv=b.eufAnt; }
+      else if(sortMkt==='EUF ATUAL'){ av=a.eufAtual; bv=b.eufAtual; }
+      else if(sortMkt==='EVOL. MERCADO'){ av=a.ttAnt?(a.ttAtual-a.ttAnt)/a.ttAnt:''; bv=b.ttAnt?(b.ttAtual-b.ttAnt)/b.ttAnt:''; }
+      else if(sortMkt==='EVOL. EUF'){ av=a.eufAnt?(a.eufAtual-a.eufAnt)/a.eufAnt:''; bv=b.eufAnt?(b.eufAtual-b.eufAnt)/b.eufAnt:''; }
+      else{ av=a.eufAtual; bv=b.eufAtual; }
+      if(av===''&&bv==='') return 0;
+      if(av==='') return 1; if(bv==='') return -1;
+      return sortDirMkt*(av-bv);
+    });
+    const tbody=document.getElementById('tbodyMkt6');
+    const ph=document.getElementById('placeholderMkt6');
+    const rc=document.getElementById('rowcountMkt6');
+    if(!tbody)return;
+    if(!agg.length){tbody.innerHTML='';if(ph)ph.style.display='block';if(rc)rc.textContent='';return;}
+    if(ph)ph.style.display='none';
+    if(rc)rc.textContent=`(${agg.length} mercados)`;
+    let html='';
+    agg.forEach((it,i)=>{
+      const evM=it.ttAnt?(it.ttAtual-it.ttAnt)/it.ttAnt:'';
+      const evE=it.eufAnt?(it.eufAtual-it.eufAnt)/it.eufAnt:'';
+      const evMCls=evM===''?'':(evM>=0?'pos':'neg');
+      const evECls=evE===''?'':(evE>=0?'pos':'neg');
+      html+=`<tr class="mkt6-row" data-mercado="${it.mercado.replace(/"/g,'&quot;')}">
+        <td class="rank" style="cursor:pointer;">▸</td>
+        <td>${stripLeadingUnderscore(it.mercado)}</td>
+        <td class="num" style="text-align:center;">${it.ttAnt||''}</td><td class="num" style="text-align:center;">${it.ttAtual||''}</td>
+        <td class="num" style="text-align:center;">${it.eufAnt||''}</td><td class="num" style="text-align:center;">${it.eufAtual||''}</td>
+        <td class="num ${evMCls}" style="text-align:center;">${pct(evM)}</td>
+        <td class="num ${evECls}" style="text-align:center;">${pct(evE)}</td>
+      </tr>`;
+    });
+    tbody.innerHTML=html;
+
+    tbody.onclick=e=>{
+      // Chart icon on médico row
+      const chartBtn=e.target.closest('.mercado-chart-btn');
+      if(chartBtn){
+        const crm=chartBtn.dataset.crm;
+        const mercadoVal=chartBtn.dataset.mercado;
+        if(crm) showMercadoChart(crm, mercadoVal);
+        return;
+      }
+
+      // Level 1: Mercado expand/collapse
+      const mercadoRow=e.target.closest('.mkt6-row');
+      if(mercadoRow){
+        const m=mercadoRow.dataset.mercado;
+        const next=mercadoRow.nextElementSibling;
+        if(next&&next.classList.contains('mkt6-medico-row')){
+          // collapse all children
+          let sib=mercadoRow.nextElementSibling;
+          while(sib&&!sib.classList.contains('mkt6-row')){const rem=sib;sib=sib.nextElementSibling;rem.remove();}
+          mercadoRow.querySelector('.rank').textContent='▸';
+        } else {
+          // expand médicos
+          const setor=globalSetorFilter?globalSetorFilter.getSelected():[];
+          const simCb=document.getElementById('fMkt6Sim');
+          const naoCb=document.getElementById('fMkt6Nao');
+          const visFilter=[];
+          if(simCb&&simCb.checked) visFilter.push('SIM');
+          if(naoCb&&naoCb.checked) visFilter.push('NÃO');
+          let mRows=ROWS.filter(r=>val(r,'Mercado')===m);
+          if(setor.length) mRows=mRows.filter(r=>setor.includes(val(r,'Setor')));
+          if(visFilter.length) mRows=mRows.filter(r=>visFilter.includes(val(r,'Visitado')));
+          const byCrm={},crmOrder=[];
+          mRows.forEach(r=>{const c=val(r,'CRM');if(!byCrm[c]){byCrm[c]=[];crmOrder.push(c);}byCrm[c].push(r);});
+          let mHtml='';
+          crmOrder.forEach(crm=>{
+            const rs=byCrm[crm],r0=rs[0];
+            const s=c=>rs.reduce((a,r)=>{const v=val(r,c);return a+(v===''?0:v);},0);
+            const ttAnt=s('TT ANT'),ttAtual=s('TT ATUAL'),eufAnt=s('EUF ANT'),eufAtual=s('EUF ATUAL');
+            const evM=ttAnt?(ttAtual-ttAnt)/ttAnt:'';
+            const evE=eufAnt?(eufAtual-eufAnt)/eufAnt:'';
+            const evMCls=evM===''?'':(evM>=0?'pos':'neg');
+            const evECls=evE===''?'':(evE>=0?'pos':'neg');
+            const naoVisit=!rs.every(r=>val(r,'Visitado')==='SIM');
+            const mapQ=encodeURIComponent(`${val(r0,'Médico')} ${val(r0,'Local')} ${val(r0,'Cidade')}`);
+            const pin=naoVisit?`<a class="map-pin" href="https://www.google.com/search?q=${mapQ}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><img src="https://www.google.com/favicon.ico" width="13" height="13" style="vertical-align:middle;opacity:.7;"></a>`:'';
+            const star=naoVisit&&eufAtual>=5?'⭐ ':'';
+            mHtml+=`<tr class="mkt6-medico-row" data-crm="${crm}" data-mercado="${m.replace(/"/g,'&quot;')}" style="cursor:pointer;">
+              <td class="rank" style="padding-left:24px;">▸</td>
+              <td style="color:var(--blue);font-weight:500;padding-left:12px;">
+                ${star}${val(r0,'Médico')} ${pin}
+                <span class="mercado-chart-btn" data-crm="${crm}" data-mercado="${m.replace(/"/g,'&quot;')}" title="Ver gráfico TT ANT x TT ATUAL">📈</span>
+              </td>
+              <td class="num" style="text-align:center;">${ttAnt||''}</td><td class="num" style="text-align:center;">${ttAtual||''}</td>
+              <td class="num" style="text-align:center;">${eufAnt||''}</td><td class="num" style="text-align:center;">${eufAtual||''}</td>
+              <td class="num ${evMCls}" style="text-align:center;">${pct(evM)}</td>
+              <td class="num ${evECls}" style="text-align:center;">${pct(evE)}</td>
+            </tr>`;
+          });
+          mercadoRow.insertAdjacentHTML('afterend',mHtml);
+          mercadoRow.querySelector('.rank').textContent='▾';
+        }
+        return;
+      }
+
+      // Level 2: Médico expand/collapse → Marcas
+      const medicoRow=e.target.closest('.mkt6-medico-row');
+      if(medicoRow){
+        const crm=medicoRow.dataset.crm;
+        const mercadoVal=medicoRow.dataset.mercado;
+        const next=medicoRow.nextElementSibling;
+        if(next&&next.classList.contains('mkt6-marca-row')){
+          // collapse marcas
+          let sib=medicoRow.nextElementSibling;
+          while(sib&&sib.classList.contains('mkt6-marca-row')){const rem=sib;sib=sib.nextElementSibling;rem.remove();}
+          medicoRow.querySelector('.rank').textContent='▸';
+        } else {
+          // expand marcas
+          const marcaRows=ROWS.filter(r=>val(r,'CRM')===crm&&val(r,'Mercado')===mercadoVal);
+          let marcaHtml='';
+          marcaRows.forEach(mr=>{
+            const ttAnt=val(mr,'TT ANT'),ttAtual=val(mr,'TT ATUAL');
+            const eufAnt=val(mr,'EUF ANT'),eufAtual=val(mr,'EUF ATUAL');
+            const evM=(ttAnt!==''&&ttAnt!==0)?(ttAtual-ttAnt)/ttAnt:'';
+            const evE=(eufAnt!==''&&eufAnt!==0)?(eufAtual-eufAnt)/eufAnt:'';
+            const evMCls=evM===''?'':(evM>=0?'pos':'neg');
+            const evECls=evE===''?'':(evE>=0?'pos':'neg');
+            const marcaNome=val(mr,'Marca');
+            const isEuf=/EUF/i.test(marcaNome);
+            marcaHtml+=`<tr class="mkt6-marca-row${isEuf?' detail-row-own':''}">
+              <td style="padding-left:48px;"></td>
+              <td style="padding-left:8px;">${marcaNome}${isEuf?'<span class="own-tag">EUF</span>':''}</td>
+              <td class="num" style="text-align:center;">${ttAnt}</td><td class="num" style="text-align:center;">${ttAtual}</td>
+              <td class="num" style="text-align:center;">${eufAnt}</td><td class="num" style="text-align:center;">${eufAtual}</td>
+              <td class="num ${evMCls}" style="text-align:center;">${pct(evM)}</td>
+              <td class="num ${evECls}" style="text-align:center;">${pct(evE)}</td>
+            </tr>`;
+          });
+          medicoRow.insertAdjacentHTML('afterend',marcaHtml);
+          medicoRow.querySelector('.rank').textContent='▾';
+        }
+      }
+    };
+    rendered=true;
+  }
+
+  function setup(){
+    if(!ROWS.length)return;
+    const mercados=sortIgnoringUnderscore(uniqueSortedFiltered('Mercado'));
+    const labels=mercados.map(stripLeadingUnderscore);
+    const mapBack={}; mercados.forEach((v,i)=>{mapBack[labels[i]]=v;});
+    mercadoFilter=createSearchMultiSelect('fMkt6Mercado',labels,'Buscar mercado(s)...',()=>render());
+    mercadoFilter._mapBack=mapBack;
+    ['fMkt6Sim','fMkt6Nao'].forEach(id=>{const el=document.getElementById(id);if(el)el.onchange=()=>render();});
+    const clr=document.getElementById('btnClearMkt6');
+    if(clr)clr.onclick=()=>{mercadoFilter.clear();['fMkt6Sim','fMkt6Nao'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=false;});render();};
+    const exp=document.getElementById('btnExportMkt6');
+    if(exp)exp.onclick=()=>{
+      ensureXLSXLoaded().then(()=>{
+        const rows=getRows();
+        if(!rows.length){alert('Sem dados.');return;}
+        const data=rows.map(r=>({'Mercado':val(r,'Mercado'),'Médico':val(r,'Médico'),'ESP':val(r,'ESP'),'TT ANT':val(r,'TT ANT'),'TT ATUAL':val(r,'TT ATUAL'),'EUF ANT':val(r,'EUF ANT'),'EUF ATUAL':val(r,'EUF ATUAL'),'MKS ANT':val(r,'MKS ANT'),'MKS ATUAL':val(r,'MKS ATUAL')}));
+        const ws=XLSX.utils.json_to_sheet(data);const wb=XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb,ws,'Mercado');XLSX.writeFile(wb,'mercado.xlsx');
+      });
+    };
+    buildHeader();
+  }
+
+  return {
+    refresh(){mercadoFilter=null;rendered=false;if(ROWS.length){setup();render();}},
+    ensureRender(){if(!rendered)render();},
+    needsRenderNow(){return !rendered;},
+    rerender(){render();},
+    clearFilters(){if(mercadoFilter)mercadoFilter.clear();render();},
+    getCurrentRows(){return getRows();}
+  };
+})();
+
+const tabMercado2Ctl = buildTab({
+  primaryCol: 'Médico',
+  primarySel: 'fMercado3', setorSel: 'fSetor3', setorAllId: 'fSetor3All', medicoInput: 'fMedico3',
+  thead: 'thead3', tbody: 'tbody3', table: 'tbl3', placeholder: 'placeholderMsg3', rowcount: 'rowcount3',
+  exportBtn: 'btnExport3', exportSheetName: 'Por Médico',
+  clickableMedico: true,
+  displayCols: DISPLAY_COLS_MERCADO,
+  consolidateByMedico: true,
+  searchPrimary: true,
+  showAllWhenEmpty: true,
+  kpiRow: 'kpiRowMercado2', paginationId: 'pagination3',
+  viewId: 'viewMercado2'
+});
+
+const tabCidadeCtl = buildTab({
+  primaryCol: 'Cidade',
+  primarySel: 'fCidade', setorSel: 'fSetor4', setorAllId: 'fSetor4All', medicoInput: 'fMedico4',
+  thead: 'thead4', tbody: 'tbody4', table: 'tbl4', placeholder: 'placeholderMsg4', rowcount: 'rowcount4',
+  exportBtn: 'btnExport4', exportSheetName: 'Por Cidade',
+  clickableMedico: true,
+  displayCols: DISPLAY_COLS_MERCADO,
+  consolidateByMedico: true,
+  primaryMultiple: true,
+  showAllWhenEmpty: true,
+  kpiRow: 'kpiRowCidade', paginationId: 'pagination4',
+  viewId: 'viewCidade'
+});
+
+const tabMarcaBtn = document.getElementById('tabMarcaBtn');
+const tabMercadoBtn = document.getElementById('tabMercadoBtn');
+const tabMercado2Btn = document.getElementById('tabMercado2Btn');
+const tabCidadeBtn = document.getElementById('tabCidadeBtn');
+const viewMarca = document.getElementById('viewMarca');
+const viewMercado = document.getElementById('viewMercado');
+const viewMercado2 = document.getElementById('viewMercado2');
+const viewCidade = document.getElementById('viewCidade');
+const topbarMarca = document.getElementById('topbarMarca');
+const topbarMercado = document.getElementById('topbarMercado');
+const topbarMercado2 = document.getElementById('topbarMercado2');
+const topbarCidade = document.getElementById('topbarCidade');
+
+
+const tabDashBtn = document.getElementById('tabDashBtn');
+const viewDash = document.getElementById('viewDash');
+const topbarDash = document.getElementById('topbarDash');
+
+const tabMkt6Btn = document.getElementById('tabMkt6Btn');
+const viewMkt6 = document.getElementById('viewMkt6');
+const topbarMkt6 = document.getElementById('topbarMkt6');
+
+const allTabs = [
+  { btn: tabMarcaBtn, view: viewMarca, topbar: topbarMarca, ctl: tabMarcaCtl },
+  { btn: tabMercadoBtn, view: viewMercado, topbar: topbarMercado, ctl: tabMercadoCtl },
+  { btn: tabMkt6Btn, view: viewMkt6, topbar: topbarMkt6, ctl: tabMkt6Ctl },
+  { btn: tabMercado2Btn, view: viewMercado2, topbar: topbarMercado2, ctl: tabMercado2Ctl },
+  { btn: tabCidadeBtn, view: viewCidade, topbar: topbarCidade, ctl: tabCidadeCtl },
+  { btn: tabDashBtn, view: viewDash, topbar: topbarDash, ctl: { ensureRender: renderDashboard, needsRenderNow: ()=>false, rerender: renderDashboard, refresh: renderDashboard, clearFilters: ()=>{}, getCurrentRows: ()=>[] } },
+];
+
+function setupGlobalSetorFilter(){
+  const setorValues = uniqueSorted('Setor');
+  let hiddenSetorContainer = document.getElementById('fSetorGlobal');
+  if(!hiddenSetorContainer){
+    hiddenSetorContainer = document.createElement('div');
+    hiddenSetorContainer.id = 'fSetorGlobal';
+    hiddenSetorContainer.style.display = 'none';
+    document.body.appendChild(hiddenSetorContainer);
+  }
+  globalSetorFilter = createInlineCheckList('fSetorGlobal', setorValues, ()=>{
+    allTabs.forEach(t => t.ctl.rerender());
+  });
+}
+setupGlobalSetorFilter();
+
+function activateTab(target){
+  allTabs.forEach(t=>{
+    const isActive = t===target;
+    t.btn.classList.toggle('active', isActive);
+    t.view.style.display = isActive ? '' : 'none';
+    t.topbar.style.display = isActive ? '' : 'none';
+  });
+  gaEvent('troca_aba', {aba: target.btn.id});
+  if(ROWS.length){
+    showLoading('Carregando...');
+    setTimeout(()=>{ target.ctl.ensureRender(); target.ctl.rerender(); hideLoading(); }, 50);
+  }
+}
+
+allTabs.forEach(t=>{
+  t.btn.addEventListener('click', ()=>activateTab(t));
+});
+
+// ---- Upload de planilha (mesma estrutura) ----
+const EXPECTED_COLS = ['CRM','Médico','ESP','Visitado','Setor','Local','Cidade','Região CUP','Mercado','Marca','TT ANT','EUF ANT','TT ATUAL','EUF ATUAL','MKS ANT','MKS ATUAL'];
+const NUM_COLS = ['TT ANT','EUF ANT','TT ATUAL','EUF ATUAL'];
+const PCT_COLS = ['MKS ANT','MKS ATUAL'];
+
+function processWorkbookFile(file, onSuccess, onError){
+  ensureXLSXLoaded().then(()=>{
+    const reader = new FileReader();
+    reader.onload = (evt)=>{
+      try{
+        const wb = XLSX.read(evt.target.result, {type:'array'});
+        const exportSheet = wb.SheetNames.find(n => n.trim().toLowerCase() === 'export') || wb.SheetNames[0];
+        const sheet = wb.Sheets[exportSheet];
+        const json = XLSX.utils.sheet_to_json(sheet, {defval:''});
+
+        if(json.length===0){ throw new Error('Planilha vazia.'); }
+        const fileCols = Object.keys(json[0]);
+        const missing = EXPECTED_COLS.filter(c => !fileCols.includes(c));
+        if(missing.length){
+          throw new Error('Colunas faltando: ' + missing.join(', '));
+        }
+
+        const newRows = json.map(row=>{
+          return EXPECTED_COLS.map(c=>{
+            let v = row[c];
+            if(v===undefined || v===null) v='';
+            if(NUM_COLS.includes(c) || PCT_COLS.includes(c)){
+              v = (v==='') ? '' : Number(v);
+            } else {
+              v = String(v);
+            }
+            return v;
+          });
+        });
+
+        COLS = EXPECTED_COLS;
+        IDX = {}; COLS.forEach((c,i)=>IDX[c]=i);
+        ROWS = newRows;
+        ALL_ROWS = newRows;
+
+        onSuccess(newRows.length, file.name);
+      } catch(err){
+        onError(err);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }).catch(err=>{
+    onError(err);
+  });
+}
+
+// Tela inicial (gate): só libera o painel após carregar uma planilha
+const landingScreen = document.getElementById('landingScreen');
+const appScreen = document.getElementById('appScreen');
+const fileUploadLanding = document.getElementById('fileUploadLanding');
+const landingStatus = document.getElementById('landingStatus');
+const sideFileName = document.getElementById('sideFileName');
+const sideFileCount = document.getElementById('sideFileCount');
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+function showLoading(text){
+  loadingOverlay.querySelector('.loading-text').textContent = text || 'Processando planilha...';
+  loadingOverlay.classList.add('show');
+}
+function hideLoading(){
+  loadingOverlay.classList.remove('show');
+}
+
+function finalizeDataLoad(){
+  setupGlobalSetorFilter();
+  dashMercadoFilter = null;
+  tabMarcaCtl.refresh();
+  tabMercadoCtl.refresh();
+  tabMkt6Ctl.refresh();
+  tabMercado2Ctl.refresh();
+  tabCidadeCtl.refresh();
+}
+
+// ---- Pop-up "Marque aqui seu setor" ----
+const setorModalOverlay = document.getElementById('setorModalOverlay');
+const setorModalList = document.getElementById('setorModalList');
+const setorModalSkip = document.getElementById('setorModalSkip');
+const setorModalConfirm = document.getElementById('setorModalConfirm');
+
+function showSetorModal(onDone){
+  hideLoading();
+  const setores = Array.from(new Set(ALL_ROWS.map(r=>val(r,'Setor')).filter(v=>v!=='')))
+    .sort((a,b)=>a.localeCompare(b));
+
+  if(setores.length<=1){ onDone(); return; }
+
+  // pre-check currently active setores if re-opening
+  const currentSetor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+  setorModalList.innerHTML = setores.map(s=>`
+    <label class="setor-modal-opt">
+      <input type="checkbox" value="${s.replace(/"/g,'&quot;')}" ${currentSetor.includes(s)?'checked':''}>
+      ${s}
+    </label>
+  `).join('');
+
+  setorModalOverlay.classList.add('show');
+
+  function cleanup(){
+    setorModalOverlay.classList.remove('show');
+    setorModalConfirm.removeEventListener('click', onConfirm);
+    setorModalSkip.removeEventListener('click', onSkip);
+  }
+  function applySetor(selected){
+    if(selected.length){
+      ROWS = ALL_ROWS.filter(r => selected.includes(val(r,'Setor')));
+    } else {
+      ROWS = ALL_ROWS;
+    }
+  }
+  function onConfirm(){
+    const selected = Array.from(setorModalList.querySelectorAll('input:checked')).map(i=>i.value);
+    cleanup();
+    applySetor(selected);
+    onDone();
+  }
+  function onSkip(){
+    cleanup();
+    ROWS = ALL_ROWS;
+    onDone();
+  }
+  setorModalConfirm.addEventListener('click', onConfirm);
+  setorModalSkip.addEventListener('click', onSkip);
+}
+
+function gaEvent(name, params={}){
+  if(typeof gtag === 'function') gtag('event', name, params);
+}
+
+function unlockApp(){
+  landingScreen.style.display = 'none';
+  appScreen.style.display = 'block';
+  sideFileCount.textContent = `${ROWS.length.toLocaleString('pt-BR')} linhas`;
+  gaEvent('arquivo_carregado', {linhas: ROWS.length});
+  activateTab(allTabs[5]); // Dashboard
+  renderDashboard();
+  hideLoading();
+}
+
+fileUploadLanding.addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  landingStatus.className = '';
+  landingStatus.textContent = 'Lendo arquivo...';
+  showLoading('Lendo planilha...');
+
+  let done = false;
+  const watchdog = setTimeout(()=>{
+    if(done) return;
+    done = true;
+    landingStatus.className = 'error';
+    landingStatus.textContent = 'Erro: o carregamento demorou demais (possível bloqueio de rede). Tente novamente ou verifique sua conexão.';
+    hideLoading();
+  }, 25000);
+
+  setTimeout(()=>{
+    processWorkbookFile(file,
+      (count, fileName)=>{
+        if(done) return;
+        done = true;
+        clearTimeout(watchdog);
+        sideFileName.textContent = fileName;
+        showSetorModal(()=>{
+          finalizeDataLoad();
+          landingStatus.className = '';
+          landingStatus.textContent = `${ROWS.length.toLocaleString('pt-BR')} linhas carregadas.`;
+          unlockApp();
+        });
+      },
+      (err)=>{
+        if(done) return;
+        done = true;
+        clearTimeout(watchdog);
+        landingStatus.className = 'error';
+        landingStatus.textContent = 'Erro: ' + err.message;
+        hideLoading();
+      }
+    );
+  }, 30);
+});
+
+// demo data removido — apenas upload de arquivo real
+
+
+// Botão de atualização mensal dentro do painel já liberado
+document.getElementById('btnTrocarSetor').addEventListener('click', ()=>{
+  showSetorModal(()=>{
+    finalizeDataLoad();
+  });
+});
+
+const fileInput = document.getElementById('fileUpload');
+const statusEl = document.getElementById('sideUploadStatus');
+
+fileInput.addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  statusEl.style.color = '#00C9A7';
+  statusEl.textContent = 'Lendo arquivo...';
+  showLoading('Atualizando planilha...');
+  setTimeout(()=>{
+    processWorkbookFile(file,
+      (count, fileName)=>{
+        sideFileName.textContent = fileName;
+        showSetorModal(()=>{
+          finalizeDataLoad();
+          statusEl.style.color = '#00C9A7';
+          statusEl.textContent = `Atualizado: ${ROWS.length.toLocaleString('pt-BR')} linhas.`;
+          sideFileCount.textContent = `${ROWS.length.toLocaleString('pt-BR')} linhas`;
+          hideLoading();
+        });
+      },
+      (err)=>{
+        statusEl.style.color = '#FF6B6B';
+        statusEl.textContent = 'Erro: ' + err.message;
+        hideLoading();
+      }
+    );
+  }, 30);
+});
+// ---- Dashboard ----
+let dashMercadoFilter = null;
+
+function setupDashMercadoFilter(){
+  const mercados = sortIgnoringUnderscore(uniqueSortedFiltered('Mercado'));
+  const labels = mercados.map(stripLeadingUnderscore);
+  const map = {}; mercados.forEach((v,i)=>{ map[labels[i]]=v; });
+  dashMercadoFilter = createSearchMultiSelect('dashFiltroMercado', labels, 'Buscar ou selecionar mercado(s)...', ()=>renderDashboard());
+  dashMercadoFilter._map = map;
+}
+
+function renderDashboard(){
+  if(!ROWS.length) return;
+  if(!dashMercadoFilter) setupDashMercadoFilter();
+
+  const setor = globalSetorFilter ? globalSetorFilter.getSelected() : [];
+  const selMercados = (dashMercadoFilter.getSelected() || []).map(l=>dashMercadoFilter._map[l]);
+
+  let rows = ROWS.slice();
+  if(setor.length) rows = rows.filter(r=>setor.includes(val(r,'Setor')));
+  if(selMercados.length) rows = rows.filter(r=>selMercados.includes(val(r,'Mercado')));
+
+  // Unique médicos
+  const crmSet = new Set();
+  const visitadosCrm = new Set();
+  let sumTT=0, sumEUF=0;
+  rows.forEach(r=>{
+    const crm = val(r,'CRM');
+    crmSet.add(crm);
+    if(val(r,'Visitado')==='SIM') visitadosCrm.add(crm);
+    const tt=val(r,'TT ATUAL'), euf=val(r,'EUF ATUAL');
+    if(tt!=='') sumTT+=tt;
+    if(euf!=='') sumEUF+=euf;
+  });
+  const total = crmSet.size;
+  const visitados = visitadosCrm.size;
+  const naoVisitados = total - visitados;
+  const pctVisit = total ? (visitados/total*100).toFixed(0)+'%' : '–';
+
+  // KPI cards
+  const kpiEl = document.getElementById('dashKpis');
+  kpiEl.innerHTML = `
+    <div class="dash-kpi">
+      <div class="dash-kpi-label">Total de Médicos</div>
+      <div class="dash-kpi-value">${total.toLocaleString('pt-BR')}</div>
+      <div class="dash-kpi-sub">Médicos únicos no filtro</div>
+    </div>
+    <div class="dash-kpi green">
+      <div class="dash-kpi-label">Médicos Visitados</div>
+      <div class="dash-kpi-value">${visitados.toLocaleString('pt-BR')}</div>
+      <div class="dash-kpi-sub">Cadastrados</div>
+    </div>
+    <div class="dash-kpi coral">
+      <div class="dash-kpi-label">Não Visitados</div>
+      <div class="dash-kpi-value">${naoVisitados.toLocaleString('pt-BR')}</div>
+      <div class="dash-kpi-sub">Não cadastrados</div>
+    </div>
+    <div class="dash-kpi amber">
+      <div class="dash-kpi-label">% Visitados</div>
+      <div class="dash-kpi-value">${pctVisit}</div>
+      <div class="dash-kpi-sub">Médicos únicos visitados</div>
+    </div>
+    <div class="dash-kpi navy">
+      <div class="dash-kpi-label">TT Atual</div>
+      <div class="dash-kpi-value">${sumTT.toLocaleString('pt-BR')}</div>
+      <div class="dash-kpi-sub">Total do mercado</div>
+    </div>
+    <div class="dash-kpi purple">
+      <div class="dash-kpi-label">TT Eurofarma</div>
+      <div class="dash-kpi-value">${sumEUF.toLocaleString('pt-BR')}</div>
+      <div class="dash-kpi-sub">Prescrições EUF</div>
+    </div>
+  `;
+
+  // Aggregate by CRM
+  const byMed = {};
+  rows.forEach(r=>{
+    const crm=val(r,'CRM');
+    if(!byMed[crm]) byMed[crm]={nome:val(r,'Médico'),tt:0,euf:0};
+    const tt=val(r,'TT ATUAL'), euf=val(r,'EUF ATUAL');
+    if(tt!=='') byMed[crm].tt+=tt;
+    if(euf!=='') byMed[crm].euf+=euf;
+  });
+  const medicos = Object.values(byMed);
+
+  // Top 50 TT Atual
+  const topTT = medicos.slice().sort((a,b)=>b.tt-a.tt).slice(0,50);
+  document.getElementById('dashChartTT').innerHTML = buildHBar(topTT, 'tt', '#1B7FE8', 'TT Atual');
+
+  // Top 50 EUF Atual
+  const topEUF = medicos.slice().sort((a,b)=>b.euf-a.euf).slice(0,50);
+  document.getElementById('dashChartEUF').innerHTML = buildHBar(topEUF, 'euf', '#00C9A7', 'EUF Atual');
+
+  // Click: nome do médico → aba Médico com filtro
+  ['dashChartTT','dashChartEUF'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.onclick=e=>{
+      const link=e.target.closest('.dash-medico-link');
+      if(!link) return;
+      const nome=link.dataset.nome;
+      activateTab(allTabs[3]); // aba Médico
+      setTimeout(()=>{
+        // Digita o nome no campo de busca e seleciona o médico
+        const searchInput = document.querySelector('#fMercado3 .search-input');
+        if(searchInput){
+          searchInput.value = nome;
+          searchInput.dispatchEvent(new Event('input', {bubbles:true}));
+          setTimeout(()=>{
+            const firstOpt = document.querySelector('#fMercado3 .search-opt:not(.msel-selectall) input[type="checkbox"]');
+            if(firstOpt && !firstOpt.checked) firstOpt.click();
+          }, 80);
+        }
+      }, 100);
+    };
+  });
+}
+
+function buildHBar(items, field, color, label){
+  if(!items.length) return '<div class="chart-empty">Sem dados</div>';
+  const maxV = Math.max(...items.map(i=>i[field]));
+  const rows = items.map((it,i)=>{
+    const pct = maxV ? (it[field]/maxV*100).toFixed(1) : 0;
+    const nome = it.nome.length>28 ? it.nome.slice(0,28)+'…' : it.nome;
+    return `<div class="hbar-row">
+      <div class="hbar-label">
+        <span class="dash-medico-link" data-nome="${it.nome.replace(/"/g,'&amp;quot;')}" title="Ver ${it.nome} na aba Médico">${i+1}. ${nome}</span>
+      </div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:${pct}%;background:${color};"></div>
+      </div>
+      <div class="hbar-val">${it[field].toLocaleString('pt-BR')}</div>
+    </div>`;
+  }).join('');
+  return `<div class="hbar-wrap">${rows}</div>`;
+}
+
+// ---- Insight IA ----
+document.getElementById('insightModalClose').addEventListener('click', ()=>{
+  document.getElementById('insightModalOverlay').classList.remove('show');
+});
+document.getElementById('insightModalOverlay').addEventListener('click', e=>{
+  if(e.target.id==='insightModalOverlay') e.currentTarget.classList.remove('show');
+});
+
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.insight-btn');
+  if(!btn) return;
+  e.stopPropagation();
+  e.preventDefault();
+  const crm = btn.dataset.crm;
+  const nome = btn.dataset.nome;
+  showMedicoInsight(crm, nome);
+}, true); // capture phase to intercept before row click handler
+
+// ---- PIN de acesso ----
+(async function initPin(){
+  const PIN_HASH = '4e49800fbc3cefb76b1b887fa36a8dbd6dd283667258c613e1754fa3d266fefb'; // SHA-256 de "2080"
+  const SESSION_KEY = 'ef_audit_auth';
+  const pinScreen = document.getElementById('pinScreen');
+  const pinError = document.getElementById('pinError');
+  const dots = document.querySelectorAll('.pin-dot');
+  let entered = '';
+
+  // Já autenticado nesta sessão?
+  if(sessionStorage.getItem(SESSION_KEY) === PIN_HASH){
+    pinScreen.style.display = 'none';
+    return;
+  }
+
+  function updateDots(){
+    dots.forEach((d,i)=>d.classList.toggle('filled', i<entered.length));
+  }
+
+  async function sha256(str){
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function checkPin(){
+    const hash = await sha256(entered);
+    if(hash === PIN_HASH){
+      sessionStorage.setItem(SESSION_KEY, PIN_HASH);
+      pinScreen.style.opacity='0';
+      pinScreen.style.transition='opacity .3s';
+      setTimeout(()=>pinScreen.style.display='none', 300);
+    } else {
+      pinError.textContent = 'PIN incorreto. Tente novamente.';
+      entered = '';
+      updateDots();
+      setTimeout(()=>pinError.textContent='', 1500);
+    }
+  }
+
+  document.querySelectorAll('.pin-key').forEach(btn=>{
+    btn.addEventListener('click', async()=>{
+      const n = btn.dataset.n;
+      if(n==='del'){ entered=entered.slice(0,-1); pinError.textContent=''; }
+      else if(n==='ok'){ if(entered.length===4) await checkPin(); }
+      else if(entered.length<4){ entered+=n; }
+      updateDots();
+      if(entered.length===4 && n!=='ok') await checkPin();
+    });
+  });
+
+  // Suporte ao teclado físico
+  document.addEventListener('keydown', async e=>{
+    if(pinScreen.style.display==='none') return;
+    if(e.key>='0'&&e.key<='9'&&entered.length<4){ entered+=e.key; updateDots(); if(entered.length===4) await checkPin(); }
+    else if(e.key==='Backspace'){ entered=entered.slice(0,-1); updateDots(); pinError.textContent=''; }
+    else if(e.key==='Enter'&&entered.length===4) await checkPin();
+  });
+})();
+
+// ---- Fim PIN ----
+
+const GROQ_KEY = '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';
+
+async function showMedicoInsight(crm, nome){
+  const overlay = document.getElementById('insightModalOverlay');
+  const title   = document.getElementById('insightModalTitle');
+  const sub     = document.getElementById('insightModalSub');
+  const body    = document.getElementById('insightModalBody');
+
+  title.textContent = nome;
+  sub.textContent   = 'Análise estratégica gerada por IA';
+  body.innerHTML    = '<div class="insight-loading"><div class="insight-spinner"></div><span>Analisando dados...</span></div>';
+  overlay.classList.add('show');
+
+  /* ── Dados base do médico ─────────────────────────────────────── */
+  const medicoRows = ROWS.filter(r => val(r,'CRM') === crm);
+  if(!medicoRows.length){ body.textContent='Sem dados para este médico.'; return; }
+
+  const r0       = medicoRows[0];
+  const visitado = medicoRows.every(r => val(r,'Visitado')==='SIM');
+  const esp      = val(r0,'ESP');
+  const cidade   = val(r0,'Cidade');
+
+  /* ── Ranking geral (TT ATUAL e EUF ATUAL) ─────────────────────── */
+  const rankMap = {};
+  ROWS.forEach(r => {
+    const c2 = val(r,'CRM');
+    if(!rankMap[c2]) rankMap[c2] = {tt:0, euf:0};
+    const ta = val(r,'TT ATUAL'), ea = val(r,'EUF ATUAL');
+    if(ta !== '') rankMap[c2].tt  += ta;
+    if(ea !== '') rankMap[c2].euf += ea;
+  });
+  const sortedTT  = Object.entries(rankMap).sort((a,b) => b[1].tt  - a[1].tt);
+  const sortedEUF = Object.entries(rankMap).sort((a,b) => b[1].euf - a[1].euf);
+  const posTT     = sortedTT.findIndex(x  => x[0] === crm);
+  const posEUF    = sortedEUF.findIndex(x => x[0] === crm);
+  const rankTT    = posTT  >= 0 ? `#${posTT  + 1} em TT Atual`  : 'fora do ranking TT';
+  const rankEUF   = posEUF >= 0 ? `#${posEUF + 1} em EUF Atual` : 'fora do ranking EUF';
+
+  /* ── Agrupar por Mercado (col K) — filtrar TT soma >= 4 ────────── */
+  const byMercado = {};
+  medicoRows.forEach(r => {
+    const m = val(r,'Mercado');
+    if(!byMercado[m]) byMercado[m] = [];
+    byMercado[m].push(r);
+  });
+
+  // Filtrar mercados com soma TT ATUAL >= 4
+  const mercadosValidos = Object.entries(byMercado).filter(([, rows]) => {
+    return rows.reduce((s,r) => { const v=val(r,'TT ATUAL'); return s+(v===''?0:v); }, 0) >= 4;
+  });
+
+  if(!mercadosValidos.length){
+    body.textContent = 'Nenhum mercado com TT Atual ≥ 4 para analisar.';
+    return;
+  }
+
+  /* ── Montar dados estruturados por Mercado ─────────────────────── */
+  let blocosCrescimento = '';
+  let blocosQueda       = '';
+  let blocosCompetitivo = '';
+  let blocosOport       = '';
+
+  mercadosValidos.forEach(([mercado, rows]) => {
+    const nomeMkt  = mercado.replace(/_/g,'').trim();
+    const eufRows  = rows.filter(r =>  /EUF/i.test(val(r,'Marca')));
+    const concRows = rows.filter(r => !/EUF/i.test(val(r,'Marca')));
+    const ttMkt    = rows.reduce((s,r) => { const v=val(r,'TT ATUAL'); return s+(v===''?0:v); }, 0);
+
+    // ── CRESCIMENTO e QUEDA ─────────────────────────────────────────
+    let linhasCrEuf='', linhasCrConc='', linhasQdEuf='', linhasQdConc='';
+
+    eufRows.forEach(r => {
+      const marca = val(r,'Marca');
+      const ttA   = val(r,'TT ANT')||0,  ttAt = val(r,'TT ATUAL')||0;
+      if(ttA === 0 && ttAt === 0) return;
+      const ev = ttA > 0 ? ((ttAt - ttA) / ttA * 100) : null;
+      const evStr = ev !== null ? `${ev >= 0 ? '+' : ''}${ev.toFixed(1)}%` : 'novo';
+      if(ev === null || ev >= 0){
+        linhasCrEuf += `      [MEU PRODUTO] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
+      } else {
+        const alerta = ev <= -15 ? ' ⚠️ ALERTA QUEDA >= 15%' : '';
+        linhasQdEuf += `      [MEU PRODUTO] ${marca}: TT ${ttA} → ${ttAt} (${evStr})${alerta}\n`;
+      }
+    });
+
+    concRows.forEach(r => {
+      const marca = val(r,'Marca');
+      const ttA   = val(r,'TT ANT')||0, ttAt = val(r,'TT ATUAL')||0;
+      if(ttA === 0 && ttAt === 0) return;
+      const ev = ttA > 0 ? ((ttAt - ttA) / ttA * 100) : null;
+      const evStr = ev !== null ? `${ev >= 0 ? '+' : ''}${ev.toFixed(1)}%` : 'novo';
+      if(ev === null || ev >= 0){
+        linhasCrConc += `      [CONCORRENTE] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
+      } else {
+        linhasQdConc += `      [CONCORRENTE] ${marca}: TT ${ttA} → ${ttAt} (${evStr})\n`;
+      }
+    });
+
+    if(linhasCrEuf || linhasCrConc){
+      blocosCrescimento += `  Mercado ${nomeMkt} (TT Atual total: ${ttMkt}):\n${linhasCrEuf}${linhasCrConc}`;
+    }
+    if(linhasQdEuf || linhasQdConc){
+      blocosQueda += `  Mercado ${nomeMkt} (TT Atual total: ${ttMkt}):\n${linhasQdEuf}${linhasQdConc}`;
+    }
+
+    // ── POSIÇÃO COMPETITIVA (MKS ATUAL col R + TT ATUAL col O) ─────
+    const todasMarcas = [...rows].sort((a,b) => (val(b,'TT ATUAL')||0) - (val(a,'TT ATUAL')||0));
+    const liderTT = todasMarcas[0];
+    eufRows.forEach(r => {
+      const marca    = val(r,'Marca');
+      const mksAtual = val(r,'MKS ATUAL') || 0;
+      const mksAnt   = val(r,'MKS ANT')   || 0;
+      const ttAt     = val(r,'TT ATUAL')   || 0;
+      const posRank  = todasMarcas.findIndex(x => val(x,'Marca') === marca) + 1;
+      const ttLider  = val(liderTT,'TT ATUAL') || 0;
+      const distLider= posRank > 1 ? `, distância do líder: ${ttLider - ttAt} (${val(liderTT,'Marca')})` : ' 👑 LÍDER';
+      blocosCompetitivo += `  ${nomeMkt} | ${marca}: MKS Ant ${(mksAnt*100).toFixed(1)}% → MKS Atual ${(mksAtual*100).toFixed(1)}% | TT ${ttAt} | Posição #${posRank}/${todasMarcas.length}${distLider}\n`;
+    });
+
+    // ── OPORTUNIDADES ───────────────────────────────────────────────
+    const mksMaxEuf = Math.max(...eufRows.map(r => val(r,'MKS ATUAL')||0));
+    const mksMaxConc = Math.max(...(concRows.length ? concRows.map(r => val(r,'TT ATUAL')||0) : [0]));
+    const estrategia = mksMaxEuf * (ttMkt||1) >= mksMaxConc ? 'DEFENDER' : 'ATACAR';
+    const concNoMkt = concRows.map(r => val(r,'Marca')).join(', ');
+    blocosOport += `  ${nomeMkt}: estratégia ${estrategia}`;
+    if(concRows.length) blocosOport += ` | Concorrentes presentes: ${concNoMkt}`;
+    blocosOport += '\n';
+  });
+
+  /* ── Prompt para a IA ──────────────────────────────────────────── */
+  const prompt = `Você é um analista técnico-comercial da Eurofarma. Analise os dados do médico abaixo com tom técnico-comercial, preciso e direto. Use bullet points e linguagem profissional em português.
+
+MÉDICO: ${nome} | ESPECIALIDADE: ${esp} | CIDADE: ${cidade}
+STATUS: ${visitado ? 'VISITADO ✅' : 'NÃO VISITADO ❌'} | RANKING GERAL: ${rankTT} | ${rankEUF}
+
+Nota: Produtos com "EUF" no nome são os meus. Os demais são concorrentes. Mercados analisados: TT Atual soma >= 4.
+
+=== DADOS DE CRESCIMENTO (TT ANT → TT ATUAL por marca dentro de cada Mercado col K) ===
+${blocosCrescimento || 'Nenhum produto em crescimento nos mercados elegíveis.'}
+
+=== DADOS DE QUEDA (alerta para queda >= 15%) ===
+${blocosQueda || 'Nenhum produto em queda nos mercados elegíveis.'}
+
+=== POSIÇÃO COMPETITIVA (MKS ATUAL col R | TT ATUAL col O | ranking dentro do Mercado) ===
+${blocosCompetitivo || 'Sem dados competitivos.'}
+
+=== OPORTUNIDADES POR MERCADO (DEFENDER onde lidero, ATACAR onde estou atrás) ===
+${blocosOport || 'Sem dados de oportunidade.'}
+
+Estruture sua resposta EXATAMENTE assim:
+
+📋 STATUS DO MÉDICO
+[Nome, especialidade, status de visita, posição no ranking TT e EUF e o que isso significa estrategicamente]
+
+📈 CRESCIMENTO
+[Por mercado: como meus produtos EUF estão crescendo vs concorrentes. Use números reais.]
+
+📉 QUEDA
+[Por mercado: meus produtos EUF em queda. Quedas >= 15% são urgentes. Compare com concorrentes.]
+
+🏆 POSIÇÃO COMPETITIVA
+[Por mercado: onde sou líder (MKS/TT), posição e distância do líder quando não lidero.]
+
+💡 OPORTUNIDADES
+[DEFENDER onde MKS maior. ATACAR onde estou atrás. Alertar se concorrente está no meu mercado.]
+
+⚠️ ALERTA ESTRATÉGICO
+[1-2 ações cirúrgicas: dia do produto, amostras em mercados sem liderança, reforço de benefícios.]
+
+Máximo 300 palavras. Use dados reais. Tom técnico-comercial.`;
+
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_KEY}` },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 800,
+        temperature: 0.2
+      })
+    });
+    const data = await resp.json();
+    if(data.error){ body.textContent = `Erro: ${data.error.message}`; return; }
+    const texto = data.choices?.[0]?.message?.content;
+    if(!texto){ body.textContent = 'Sem resposta: ' + JSON.stringify(data).slice(0,200); return; }
+    body.textContent = texto;
+  } catch(err){
+    body.textContent = `Erro de rede: ${err.message}`;
+  }
+}
+
+// Botão sair
+document.getElementById('btnSair').addEventListener('click', ()=>{
+  if(confirm('Deseja sair da plataforma?')){
+    // Volta para a tela inicial (limpa dados e mostra landing)
+    document.getElementById('appScreen').style.display = 'none';
+    document.getElementById('landingScreen').style.display = 'flex';
+    ROWS = []; ALL_ROWS = [];
+    document.getElementById('sideFileName').textContent = 'Nenhum arquivo carregado';
+    document.getElementById('sideFileCount').textContent = '';
+  }
+});
+</script>
+</body>
+</html>
